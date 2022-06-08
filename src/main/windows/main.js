@@ -50,6 +50,8 @@ function init (state, options) {
     x: initialBounds.x,
     y: initialBounds.y
   })
+  win.webContents.openDevTools()
+
   require('@electron/remote/main').enable(win.webContents)
 
   win.loadURL(config.WINDOW_MAIN)

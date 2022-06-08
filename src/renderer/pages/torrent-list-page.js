@@ -9,8 +9,9 @@ const TorrentPlayer = require('../lib/torrent-player')
 const { dispatcher } = require('../lib/dispatcher')
 const { calculateEta } = require('../lib/time')
 
+
 module.exports = class TorrentList extends React.Component {
-  render () {
+  render() {
     const state = this.props.state
 
     const contents = []
@@ -26,7 +27,7 @@ module.exports = class TorrentList extends React.Component {
       )
     }
     const torrentElems = state.saved.torrents.map(
-      (torrentSummary) => this.renderTorrent(torrentSummary)
+      (torrentSummary, index) => this.renderTorrent(torrentSummary, index)
     )
     contents.push(...torrentElems)
     contents.push(
@@ -46,7 +47,7 @@ module.exports = class TorrentList extends React.Component {
     )
   }
 
-  renderTorrent (torrentSummary) {
+  renderTorrent(torrentSummary, index) {
     const state = this.props.state
     const infoHash = torrentSummary.infoHash
     const isSelected = infoHash && state.selectedInfoHash === infoHash
@@ -69,25 +70,180 @@ module.exports = class TorrentList extends React.Component {
       <div
         id={torrentSummary.testID && ('torrent-' + torrentSummary.testID)}
         key={torrentSummary.torrentKey}
-        style={style}
-        className={classes.join(' ')}
+        className={'torrent-wrapper'}
         onContextMenu={infoHash && dispatcher('openTorrentContextMenu', infoHash)}
         onClick={infoHash && dispatcher('toggleSelectTorrent', infoHash)}
       >
-        {this.renderTorrentMetadata(torrentSummary)}
-        {infoHash ? this.renderTorrentButtons(torrentSummary) : null}
+        <div className='torrent-name-row'>
+          {this.renderDownloadCheckbox(torrentSummary, index)}
+          {this.renderTorrentName(torrentSummary, index)}
+
+        </div>
+        <div style={{ ...style }} className={classes.join(' ')}>
+          {/* {this.renderTorrentMetadata(torrentSummary, index)} */}
+          {infoHash ? this.renderTorrentButtons(torrentSummary) : null}
+
+          <hr />
+        </div>
+        {
+          torrentSummary && torrentSummary.progress ? <>
+            {this.renderTorrentMetadata(torrentSummary, index, isSelected)}
+          </> : null
+        }
         {isSelected ? this.renderTorrentDetails(torrentSummary) : null}
-        <hr />
       </div>
     )
   }
 
-  // Show name, download status, % complete
-  renderTorrentMetadata (torrentSummary) {
+  renderTorrentName(torrentSummary) {
     const name = torrentSummary.name || 'Loading torrent...'
-    const elements = [(
-      <div key='name' className='name ellipsis'>{name}</div>
-    )]
+    return <div
+      key='name'
+      className='name ellipsis fs12'
+      style={{ marginLeft: 5 }}
+    >
+      {name}
+    </div>
+  }
+
+
+  renderDownloadCheckbox(torrentSummary, index) {
+    const infoHash = torrentSummary.infoHash
+    const isActive = ['downloading', 'seeding'].includes(torrentSummary.status)
+
+    const onToggleCheck = (e) => {
+      dispatcher('toggleTorrent', infoHash)(e)
+    }
+
+    console.log('isActive : ', isActive)
+    return <div key='download-button' className='checkbox-wrapper' onClick={onToggleCheck}>
+      {
+        isActive ?
+          <img src='chk_icon.svg' alt='chk' width={15} height={15} /> :
+          <div className='check-box-icon'></div>
+      }
+    </div>
+    // return (
+    //   <Checkbox
+    //     key='download-button'
+    //     className={'control download ' + torrentSummary.status}
+    //     style={{
+    //       display: 'inline-block',
+    //       width: 32,
+    //     }}
+    //     iconStyle={{
+    //       width: 20,
+    //       height: 20,
+    //     }}
+    //     checked={isActive}
+    //     onClick={stopPropagation} 
+    //     onCheck={()=>{dispatcher('toggleTorrent', infoHash)}}
+    //   />
+    // )
+  }
+
+  renderProgressBar(torrentSummary) {
+    if (!torrentSummary) {
+      return null;
+    }
+    const prog = torrentSummary.progress
+    if (!prog) {
+      return null;
+    }
+
+    const progress = Math.floor(100 * prog.progress)
+    const styles = {
+      progress: {
+        height: 8,
+        width: 200
+      }
+    }
+
+    if (torrentSummary.status !== 'paused' && prog) {
+      return (
+        <div key='progress-bar' className='progress-bar'>
+          <div className='prog-active-bar' style={{ width: prog + '%' }}></div>
+          {/* <LinearProgress style={styles.progress} mode='determinate' value={progress} /> */}
+        </div>
+      )
+    } else {
+      return null;
+    }
+  }
+
+  renderPercentProgress(torrentSummary) {
+    const prog = torrentSummary.progress
+    const progress = Math.floor(100 * prog.progress)
+    return (<span key='percent-progress' style={{ marginRight: 30 }}>{progress}%</span>)
+  }
+
+  renderTotalProgress(torrentSummary) {
+    const prog = torrentSummary.progress
+    const downloaded = prettyBytes(prog.downloaded)
+    const total = prettyBytes(prog.length || 0)
+    if (downloaded === total) {
+      return (<span key='total-progress' className='fs12' style={{ marginLeft: 3, marginRight: 3 }}>{' ' + downloaded + ' '}</span>)
+    } else {
+      return (<span key='total-progress' className='fs12' style={{ marginLeft: 3, marginRight: 3 }}>{' ' + downloaded} / {total + ' '}</span>)
+    }
+  }
+
+  renderPeers(torrentSummary) {
+    const prog = torrentSummary.progress
+    if (prog.numPeers === 0) return
+    const count = prog.numPeers === 1 ? 'peer' : 'peers'
+    return (<><span className='fs12' style={{ color: '#6C7086', marginLeft: 3, marginRight: 3 }}>&bull;</span><span className='fs12' key='peers'>{prog.numPeers} {count}</span></>)
+  }
+
+  renderSpeeds(torrentSummary) {
+    const prog = torrentSummary.progress
+    let downstr = ''
+    let upstr = ''
+    if (prog.downloadSpeed > 0) downstr += ' ↓ ' + prettyBytes(prog.downloadSpeed) + '/s'
+    if (prog.uploadSpeed > 0) upstr += ' ↑ ' + prettyBytes(prog.uploadSpeed) + '/s'
+    if (downstr === '' && upstr == '') return
+
+    return (<><span key='download' className='down-speed'>{downstr}</span>&nbsp;&nbsp;<span key='download' className='up-speed'>{upstr}</span></>)
+  }
+  
+  renderEta(torrentSummary) {
+    const prog = torrentSummary.progress
+    const downloaded = prog.downloaded
+    const total = prog.length || 0
+    const missing = total - downloaded
+    const downloadSpeed = prog.downloadSpeed
+    if (downloadSpeed === 0 || missing === 0) return
+
+    const etaStr = calculateEta(missing, downloadSpeed)
+
+    return (<div><span style={{ color: '#6C7086', marginLeft: 3, marginRight: 3 }}>&bull;</span><span key='eta' className='eta-span'>{etaStr}</span></div>)
+  }
+
+  renderTorrentStatus(torrentSummary) {
+    let status
+    if (torrentSummary.status === 'paused') {
+      if (!torrentSummary.progress) status = ''
+      else if (torrentSummary.progress.progress === 1) status = 'Not seeding'
+      else status = 'Paused'
+    } else if (torrentSummary.status === 'downloading') {
+      if (!torrentSummary.progress) status = ''
+      else if (!torrentSummary.progress.ready) status = 'Verifying'
+      else status = 'Downloading'
+    } else if (torrentSummary.status === 'seeding') {
+      status = 'Seeding'
+    } else { // torrentSummary.status is 'new' or something unexpected
+      status = ''
+    }
+    return (<span key='torrent-status' className='torrent-status' style={{ marginRight: 5 }}>{status}:</span>)
+  }
+
+  // Show name, download status, % complete
+  renderTorrentMetadata(torrentSummary, index, isSelected) {
+    const name = torrentSummary.name || 'Loading torrent...'
+    // const elements = [(
+    //   <div key='name' className='name ellipsis'>{name}</div>
+    // )]
+    const elements = []
 
     // If it's downloading/seeding then show progress info
     const prog = torrentSummary.progress
@@ -95,20 +251,43 @@ module.exports = class TorrentList extends React.Component {
     if (torrentSummary.error) {
       progElems = [getErrorMessage(torrentSummary)]
     } else if (torrentSummary.status !== 'paused' && prog) {
+
+      const ProgressInfo = ({ _torrentSummary, _isSelected }) => {
+
+        return <div className='progress-wrapper'>
+          {this.renderProgressBar(_torrentSummary)}
+          {this.renderPercentProgress(_torrentSummary)}
+          <div
+            className='more-drop-button'
+            onClick={
+              _torrentSummary.infoHash &&
+              dispatcher('toggleSelectTorrent', _torrentSummary.infoHash)
+            }
+          >
+            <img src='arrow-down.svg' alt='more' style={{ transform: _isSelected ? 'rotate(180deg)' : '' }} />
+          </div>
+        </div>
+      }
+
+      const RenderSpeed = (
+        <div className='render-speed-row'>
+          {this.renderSpeeds(torrentSummary)}
+          {this.renderEta(torrentSummary)}
+        </div>
+      )
+
       progElems = [
-        renderDownloadCheckbox(),
-        renderTorrentStatus(),
-        renderProgressBar(),
-        renderPercentProgress(),
-        renderTotalProgress(),
-        renderPeers(),
-        renderSpeeds(),
-        renderEta()
+        // this.renderDownloadCheckbox(torrentSummary, index),
+        <ProgressInfo _torrentSummary={torrentSummary} _isSelected={isSelected} />,
+        this.renderTorrentStatus(torrentSummary),
+        this.renderTotalProgress(torrentSummary),
+        this.renderPeers(torrentSummary),
+        RenderSpeed,
       ]
     } else {
       progElems = [
-        renderDownloadCheckbox(),
-        renderTorrentStatus()
+        // this.renderDownloadCheckbox(torrentSummary, index),
+        this.renderTorrentStatus(torrentSummary)
       ]
     }
     elements.push(
@@ -119,144 +298,59 @@ module.exports = class TorrentList extends React.Component {
 
     return (<div key='metadata' className='metadata'>{elements}</div>)
 
-    function renderDownloadCheckbox () {
-      const infoHash = torrentSummary.infoHash
-      const isActive = ['downloading', 'seeding'].includes(torrentSummary.status)
-      return (
-        <Checkbox
-          key='download-button'
-          className={'control download ' + torrentSummary.status}
-          style={{
-            display: 'inline-block',
-            width: 32
-          }}
-          iconStyle={{
-            width: 20,
-            height: 20
-          }}
-          checked={isActive}
-          onClick={stopPropagation}
-          onCheck={dispatcher('toggleTorrent', infoHash)}
-        />
-      )
-    }
-
-    function renderProgressBar () {
-      const progress = Math.floor(100 * prog.progress)
-      const styles = {
-        wrapper: {
-          display: 'inline-block',
-          marginRight: 8
-        },
-        progress: {
-          height: 8,
-          width: 30
-        }
-      }
-      return (
-        <div key='progress-bar' style={styles.wrapper}>
-          <LinearProgress style={styles.progress} mode='determinate' value={progress} />
-        </div>
-      )
-    }
-
-    function renderPercentProgress () {
-      const progress = Math.floor(100 * prog.progress)
-      return (<span key='percent-progress'>{progress}%</span>)
-    }
-
-    function renderTotalProgress () {
-      const downloaded = prettyBytes(prog.downloaded)
-      const total = prettyBytes(prog.length || 0)
-      if (downloaded === total) {
-        return (<span key='total-progress'>{downloaded}</span>)
-      } else {
-        return (<span key='total-progress'>{downloaded} / {total}</span>)
-      }
-    }
-
-    function renderPeers () {
-      if (prog.numPeers === 0) return
-      const count = prog.numPeers === 1 ? 'peer' : 'peers'
-      return (<span key='peers'>{prog.numPeers} {count}</span>)
-    }
-
-    function renderSpeeds () {
-      let str = ''
-      if (prog.downloadSpeed > 0) str += ' ↓ ' + prettyBytes(prog.downloadSpeed) + '/s'
-      if (prog.uploadSpeed > 0) str += ' ↑ ' + prettyBytes(prog.uploadSpeed) + '/s'
-      if (str === '') return
-      return (<span key='download'>{str}</span>)
-    }
-
-    function renderEta () {
-      const downloaded = prog.downloaded
-      const total = prog.length || 0
-      const missing = total - downloaded
-      const downloadSpeed = prog.downloadSpeed
-      if (downloadSpeed === 0 || missing === 0) return
-
-      const etaStr = calculateEta(missing, downloadSpeed)
-
-      return (<span key='eta'>{etaStr}</span>)
-    }
-
-    function renderTorrentStatus () {
-      let status
-      if (torrentSummary.status === 'paused') {
-        if (!torrentSummary.progress) status = ''
-        else if (torrentSummary.progress.progress === 1) status = 'Not seeding'
-        else status = 'Paused'
-      } else if (torrentSummary.status === 'downloading') {
-        if (!torrentSummary.progress) status = ''
-        else if (!torrentSummary.progress.ready) status = 'Verifying'
-        else status = 'Downloading'
-      } else if (torrentSummary.status === 'seeding') {
-        status = 'Seeding'
-      } else { // torrentSummary.status is 'new' or something unexpected
-        status = ''
-      }
-      return (<span key='torrent-status'>{status}</span>)
-    }
   }
 
   // Download button toggles between torrenting (DL/seed) and paused
   // Play button starts streaming the torrent immediately, unpausing if needed
-  renderTorrentButtons (torrentSummary) {
+  renderTorrentButtons(torrentSummary) {
     const infoHash = torrentSummary.infoHash
 
     // Only show the play/dowload buttons for torrents that contain playable media
     let playButton
     if (!torrentSummary.error && TorrentPlayer.isPlayableTorrentSummary(torrentSummary)) {
       playButton = (
-        <i
-          key='play-button'
-          title='Start streaming'
-          className='icon play'
+        <div
+          className='play-button'
           onClick={dispatcher('playFile', infoHash)}
         >
-          play_circle_outline
-        </i>
+          <span>play</span>
+          <img src='play.svg' alt='play' />
+        </div>
+        // <i
+        //   key='play-button'
+        //   title='Start streaming'
+        //   className='icon play'
+        //   onClick={dispatcher('playFile', infoHash)}
+        // >
+        //   play_circle_outline
+        // </i>
       )
     }
 
     return (
       <div className='torrent-controls'>
         {playButton}
-        <i
+        <div
+          className='delete-button'
+          onClick={dispatcher('confirmDeleteTorrent', infoHash, false)}
+        >
+          <span>delete</span>
+          <img src='delete.svg' alt='play' style={{ paddingTop: 2 }} />
+        </div>
+        {/* <i
           key='delete-button'
           className='icon delete'
           title='Remove torrent'
           onClick={dispatcher('confirmDeleteTorrent', infoHash, false)}
         >
           close
-        </i>
+        </i> */}
       </div>
     )
   }
 
   // Show files, per-file download status and play buttons, and so on
-  renderTorrentDetails (torrentSummary) {
+  renderTorrentDetails(torrentSummary) {
     let filesElement
     if (torrentSummary.error || !torrentSummary.files) {
       let message = ''
@@ -311,14 +405,14 @@ module.exports = class TorrentList extends React.Component {
   }
 
   // Show a single torrentSummary file in the details view for a single torrent
-  renderFileRow (torrentSummary, file, index) {
+  renderFileRow(torrentSummary, file, index) {
     // First, find out how much of the file we've downloaded
     // Are we even torrenting it?
     const isSelected = torrentSummary.selections && torrentSummary.selections[index]
     let isDone = false // Are we finished torrenting it?
     let progress = ''
     if (torrentSummary.progress && torrentSummary.progress.files &&
-        torrentSummary.progress.files[index]) {
+      torrentSummary.progress.files[index]) {
       const fileProg = torrentSummary.progress.files[index]
       isDone = fileProg.numPiecesPresent === fileProg.numPieces
       progress = Math.floor(100 * fileProg.numPiecesPresent / fileProg.numPieces) + '%'
@@ -374,7 +468,7 @@ module.exports = class TorrentList extends React.Component {
     )
   }
 
-  renderRadialProgressBar (fraction, cssClass) {
+  renderRadialProgressBar(fraction, cssClass) {
     const rotation = 360 * fraction
     const transformFill = { transform: 'rotate(' + (rotation / 2) + 'deg)' }
     const transformFix = { transform: 'rotate(' + rotation + 'deg)' }
@@ -396,11 +490,11 @@ module.exports = class TorrentList extends React.Component {
   }
 }
 
-function stopPropagation (e) {
+function stopPropagation(e) {
   e.stopPropagation()
 }
 
-function getErrorMessage (torrentSummary) {
+function getErrorMessage(torrentSummary) {
   const err = torrentSummary.error
   if (err === 'path-missing') {
     return (
