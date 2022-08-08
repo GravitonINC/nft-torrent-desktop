@@ -112,6 +112,10 @@ function onState (err, _state) {
     folderWatcher: createGetter(() => {
       const FolderWatcherController = require('./controllers/folder-watcher-controller')
       return new FolderWatcherController()
+    }),
+    jwtController: createGetter(() => {
+      const JwtController = require('./controllers/jwt-controller')
+      return new JwtController(state)
     })
   }
 
@@ -169,7 +173,7 @@ function onState (err, _state) {
   window.addEventListener('focus', onFocus)
   window.addEventListener('blur', onBlur)
 
-  if (electron.remote.getCurrentWindow().isVisible()) {
+  if (electron.remote && electron.remote.getCurrentWindow().isVisible()) {
     sound.play('STARTUP')
   }
 
@@ -177,6 +181,7 @@ function onState (err, _state) {
   window.setTimeout(delayedInit, config.DELAYED_INIT)
 
   // Done! Ideally we want to get here < 500ms after the user clicks the app
+  controllers.jwtController().loadJwt();
   console.timeEnd('init')
 }
 
@@ -334,6 +339,14 @@ const dispatchHandlers = {
   toggleFullScreen: (setTo) => ipcRenderer.send('toggleFullScreen', setTo),
   setTitle: (title) => { state.window.title = title },
   resetTitle: () => { state.window.title = config.APP_WINDOW_TITLE },
+
+  // JWT
+
+  loadJwt: () => controllers.jwtController().loadJwt(),
+  saveJwt: (jwt) => controllers.jwtController().saveJwt(jwt),
+  validateJwt: (jwt) => controllers.jwtController().validateJwt(jwt),
+  exchangeOtp: (otp) => controllers.jwtController().exchangeOtp(otp),
+  enterOtp: (otp) => controllers.jwtController().enterOtp(),
 
   // Everything else
   onOpen,

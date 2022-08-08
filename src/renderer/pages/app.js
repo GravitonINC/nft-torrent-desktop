@@ -23,6 +23,7 @@ const Modals = {
     () => require('../components/open-torrent-address-modal')
   ),
   'remove-torrent-modal': createGetter(() => require('../components/remove-torrent-modal')),
+  'enter-otp-modal': createGetter(() => require('../components/enter-otp-modal')),
   'update-available-modal': createGetter(() => require('../components/update-available-modal')),
   'unsupported-media-modal': createGetter(() => require('../components/unsupported-media-modal')),
   'delete-all-torrents-modal':
@@ -109,6 +110,7 @@ class App extends React.Component {
       lightMuiTheme = getMuiTheme(lightBaseTheme)
     }
 
+    console.log(Modals[state.modal.id])
     const ModalContents = Modals[state.modal.id]()
     return (
       <MuiThemeProvider muiTheme={lightMuiTheme}>

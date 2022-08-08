@@ -3,8 +3,8 @@ const path = require('path')
 const { app } = require('electron')
 const arch = require('arch')
 
-const APP_NAME = 'WebTorrent'
-const APP_TEAM = 'WebTorrent, LLC'
+const APP_NAME = 'GraviTorrent'
+const APP_TEAM = 'Graviton'
 const APP_VERSION = require('../package.json').version
 
 const IS_TEST = isTest()
@@ -18,6 +18,7 @@ const UI_HEADER_HEIGHT = 38
 const UI_TORRENT_HEIGHT = 100
 
 module.exports = {
+  GRAVITON_TORRENT_URL: 'http://0.0.0.0:3001',
   ANNOUNCEMENT_URL: 'https://webtorrent.io/desktop/announcement',
   AUTO_UPDATE_URL: 'https://webtorrent.io/desktop/update',
   CRASH_REPORT_URL: 'https://webtorrent.io/desktop/crash-report',

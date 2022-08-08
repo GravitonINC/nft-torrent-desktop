@@ -15,7 +15,6 @@ let telemetry
 
 function init (state) {
   telemetry = state.saved.telemetry
-
   // First app run
   if (!telemetry) {
     const crypto = require('crypto')

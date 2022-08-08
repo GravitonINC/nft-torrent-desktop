@@ -1,4 +1,5 @@
 const React = require('react')
+const HeaderSession = require('./header-session');
 
 const { dispatcher } = require('../lib/dispatcher')
 
@@ -53,14 +54,17 @@ class Header extends React.Component {
     const state = this.props.state
     if (state.location.url() !== 'home') return null
     return (
-      <i
-        className='icon add'
-        title='Add torrent'
-        onClick={dispatcher('openFiles')}
-        role='button'
-      >
-        add
-      </i>
+      <>
+        <HeaderSession state={state} />
+        <i
+          className='icon add'
+          title='Add torrent'
+          onClick={dispatcher('openFiles')}
+          role='button'
+        >
+          add
+        </i>
+      </>
     )
   }
 }

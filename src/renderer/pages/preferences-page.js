@@ -56,7 +56,7 @@ class PreferencesPage extends React.Component {
         <Checkbox
           className='control'
           checked={!this.props.state.saved.prefs.openExternalPlayer}
-          label='Play torrent media files using WebTorrent'
+          label='Play torrent media files using GraviTorrent'
           onCheck={this.handleOpenExternalPlayerChange}
         />
       </Preference>
@@ -171,17 +171,17 @@ class PreferencesPage extends React.Component {
     if (isFileHandler) {
       return (
         <Preference>
-          <p>WebTorrent is your default torrent app. Hooray!</p>
+          <p>GraviTorrent is your default torrent app. Hooray!</p>
         </Preference>
       )
     }
     return (
       <Preference>
-        <p>WebTorrent is not currently the default torrent app.</p>
+        <p>GraviTorrent is not currently the default torrent app.</p>
         <RaisedButton
           className='control'
           onClick={this.handleSetDefaultApp}
-          label='Make WebTorrent the default'
+          label='Make GraviTorrent the default'
         />
       </Preference>
     )
@@ -201,7 +201,7 @@ class PreferencesPage extends React.Component {
         <Checkbox
           className='control'
           checked={this.props.state.saved.prefs.startup}
-          label='Open WebTorrent on startup'
+          label='Open GraviTorrent on startup'
           onCheck={this.handleStartupChange}
         />
       </Preference>

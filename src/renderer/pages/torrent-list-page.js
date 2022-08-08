@@ -115,7 +115,6 @@ module.exports = class TorrentList extends React.Component {
       dispatcher('toggleTorrent', infoHash)(e)
     }
 
-    console.log('isActive : ', isActive)
     return <div key='download-button' className='checkbox-wrapper' onClick={onToggleCheck}>
       {
         isActive ?
@@ -136,7 +135,7 @@ module.exports = class TorrentList extends React.Component {
     //       height: 20,
     //     }}
     //     checked={isActive}
-    //     onClick={stopPropagation} 
+    //     onClick={stopPropagation}
     //     onCheck={()=>{dispatcher('toggleTorrent', infoHash)}}
     //   />
     // )
@@ -205,7 +204,7 @@ module.exports = class TorrentList extends React.Component {
 
     return (<><span key='download' className='down-speed'>{downstr}</span>&nbsp;&nbsp;<span key='download' className='up-speed'>{upstr}</span></>)
   }
-  
+
   renderEta(torrentSummary) {
     const prog = torrentSummary.progress
     const downloaded = prog.downloaded
