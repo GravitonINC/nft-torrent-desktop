@@ -86,6 +86,8 @@ function init () {
 
   ipcRenderer.send('ipcReadyWebTorrent')
 
+  ipcRenderer.send('wt-update-peer-id', client.peerId)
+
   window.addEventListener('error', (e) =>
     ipcRenderer.send('wt-uncaught-error', { message: e.error.message, stack: e.error.stack }),
   true)

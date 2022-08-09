@@ -6,7 +6,7 @@ class HeaderSession extends React.Component {
   loggedIn(account) {
     return (
       <>
-        <span >Hello {account}</span>
+        <span >Wallet {account}</span>
         <i
           className='icon add'
           title='Exit'

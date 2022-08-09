@@ -399,6 +399,7 @@ function setupIpc () {
   ipcRenderer.on('wt-poster', (e, ...args) => tc.torrentPosterSaved(...args))
   ipcRenderer.on('wt-audio-metadata', (e, ...args) => tc.torrentAudioMetadata(...args))
   ipcRenderer.on('wt-server-running', (e, ...args) => tc.torrentServerRunning(...args))
+  ipcRenderer.on('wt-update-peer-id', (e, ...args) => console.log('webtorrent: wt-update-peer-id', ...args))
 
   ipcRenderer.on('wt-uncaught-error', (e, err) => telemetry.logUncaughtError('webtorrent', err))
 
