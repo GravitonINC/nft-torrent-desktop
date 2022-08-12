@@ -1209,3 +1209,9 @@ video::-webkit-media-text-track-container {
   opacity: 0;
   transition: opacity 200ms linear;
 }
+.space-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

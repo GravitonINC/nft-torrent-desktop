@@ -3,6 +3,7 @@ const Chip = require('material-ui/Chip').default
 const CircularProgress = require('material-ui/CircularProgress').default
 const CustomButton = require('./custom-button')
 const TextField = require('./custom-text-field')
+const Heading = require('./heading')
 const GradientBorderButton = require('./gradient-border-button')
 const GradientButton = require('./gradient-button')
 const { clipboard } = require('electron')
@@ -55,6 +56,27 @@ module.exports = class EnterOtpModal extends React.Component {
       })
   }
 
+  getHeader() {
+    const headingStyle = {
+      padding: 0,
+      margin: 0,
+    }
+    return (
+      <div class="space-between" style={{ marginBottom: 20 }}>
+        <Heading level={1} style={headingStyle}>Link your wallet</Heading>
+        <i
+          className={'icon'}
+          title='Close'
+          onClick={dispatcher('exitModal')}
+          role='button'
+          aria-label='Close'
+        >
+          close
+        </i>
+      </div>
+    );
+  }
+
   render() {
     const contentStyle = {
       display: 'grid',
@@ -62,6 +84,7 @@ module.exports = class EnterOtpModal extends React.Component {
     }
     return (
       <div className='enter-otp-modal'>
+        {this.getHeader()}
         <div style={contentStyle}>
           <Chip
             backgroundColor="#443F55"
