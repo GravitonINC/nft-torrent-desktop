@@ -201,9 +201,10 @@ class PreferencesPage extends React.Component {
     dispatch('updatePreferences', 'startup', isChecked)
   }
   setWallet() {
+    const account = this.props.state?.saved?.auth?.address;
     return (
       <Preference>
-        <Wallet state={this.props.state} />
+        <Wallet state={this.props.state} account={account}/>
       </Preference>
     );
   }

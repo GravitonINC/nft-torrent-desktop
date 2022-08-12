@@ -43,6 +43,7 @@ module.exports = class JwtApi {
       resolve({
         success: true,
         accessToken: data.access_token,
+        address: data.address,
       });
     });
     return promise;

@@ -12,7 +12,7 @@ class WalletConnected extends React.Component {
       <>
         <div className='space-between'>
           <p style={{ color: '#FFFFFF' }}>Wallet</p>
-          <a className='cta' href='javascript:void(0)' onClick={dispatcher('unlinkWalletModal')}>Unlink</a>
+          <a className='cta' href='#' onClick={dispatcher('unlinkWalletModal')}>Unlink</a>
         </div>
         <div className='dark-box'>
           <div className='space-between'>

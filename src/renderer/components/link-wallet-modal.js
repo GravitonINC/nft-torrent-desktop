@@ -34,13 +34,13 @@ module.exports = class LinkWalletModal extends React.Component {
     if (!otp.length) return;
     this.setState({ loading: true, error: '' });
     JwtApi.exchangeOtp(otp)
-      .then(({ success, accessToken, res }) => {
+      .then(({ success, accessToken, address, res }) => {
         if (success) {
-          dispatch('validateJwt', accessToken);
-          setTimeout(() => {
-            this.setState({ loading: false, error: '' });
-            dispatch('exitModal')
-          }, 1000);
+          dispatch('saveJwt', {
+            address,
+            accessToken
+          });
+          dispatch('exitModal');
           return;
         }
         this.setState({
@@ -62,7 +62,7 @@ module.exports = class LinkWalletModal extends React.Component {
       margin: 0,
     }
     return (
-      <div class="space-between" style={{ marginBottom: 20 }}>
+      <div className="space-between" style={{ marginBottom: 20 }}>
         <Heading level={1} style={headingStyle}>Link your wallet</Heading>
         <i
           className={'icon'}

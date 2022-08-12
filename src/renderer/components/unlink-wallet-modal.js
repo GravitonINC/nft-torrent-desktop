@@ -30,7 +30,7 @@ module.exports = class UnlinkWalletModal extends React.Component {
       margin: 0,
     }
     return (
-      <div class="space-between" style={{ marginBottom: 20 }}>
+      <div className="space-between" style={{ marginBottom: 20 }}>
         <Heading level={1} style={headingStyle}>Unlink wallet</Heading>
         <i
           className={'icon'}
