@@ -4,13 +4,13 @@ const TextField = require('material-ui/TextField').default
 const { dispatcher, dispatch } = require('../lib/dispatcher')
 
 class CustomTextField extends React.Component {
-  state = {focus: false};
+  state = { focus: false };
 
   onBlur() {
-    this.setState({focus: false});
+    this.setState({ focus: false });
   }
   onFocus() {
-    this.setState({focus: false});
+    this.setState({ focus: false });
   }
 
   getVariant() {
@@ -38,7 +38,7 @@ class CustomTextField extends React.Component {
 
   render() {
 
-    const {refX, inputStyle={}, ...props} = this.props;
+    const { refX, inputStyle = {}, errorStyle = {}, ...props } = this.props;
     const combinedInputStyle = {
       ...inputStyle,
       ...this.getInputStyle()
@@ -48,8 +48,9 @@ class CustomTextField extends React.Component {
         underlineShow={false}
         inputStyle={combinedInputStyle}
         ref={this.props.refX}
-        onBlur={() => this.setState({focus: false})}
-        onFocus={() => this.setState({focus: true})}
+        onBlur={() => this.setState({ focus: false })}
+        onFocus={() => this.setState({ focus: true })}
+        errorStyle={{ ...errorStyle, marginTop: 3 }}
         {...props}
       />
     )
