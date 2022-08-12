@@ -3,12 +3,16 @@ const PropTypes = require('prop-types')
 
 const colors = require('material-ui/styles/colors')
 const Checkbox = require('material-ui/Checkbox').default
-const RaisedButton = require('material-ui/RaisedButton').default
 const Heading = require('../components/heading')
+const Wallet = require('../components/wallet')
 const PathSelector = require('../components/path-selector')
+const CustomButton = require('../components/custom-button')
 
 const { dispatch } = require('../lib/dispatcher')
 const config = require('../../config')
+
+const defaultCheckboxIconStyle = {fill: 'rgba(17, 13, 33, 0.2)'};
+const defaultCheckedIcon = (<img src='chk_icon.svg' alt='chk' width={24} height={24} />);
 
 class PreferencesPage extends React.Component {
   constructor (props) {
@@ -55,6 +59,8 @@ class PreferencesPage extends React.Component {
       <Preference>
         <Checkbox
           className='control'
+          iconStyle={defaultCheckboxIconStyle}
+          checkedIcon={defaultCheckedIcon}
           checked={!this.props.state.saved.prefs.openExternalPlayer}
           label='Play torrent media files using GraviTorrent'
           onCheck={this.handleOpenExternalPlayerChange}
@@ -72,6 +78,8 @@ class PreferencesPage extends React.Component {
       <Preference>
         <Checkbox
           className='control'
+          iconStyle={defaultCheckboxIconStyle}
+          checkedIcon={defaultCheckedIcon}
           checked={this.props.state.saved.prefs.highestPlaybackPriority}
           label='Highest Playback Priority'
           onCheck={this.handleHighestPlaybackPriorityChange}
@@ -118,6 +126,8 @@ class PreferencesPage extends React.Component {
       <Preference>
         <Checkbox
           className='control'
+          iconStyle={defaultCheckboxIconStyle}
+          checkedIcon={defaultCheckedIcon}
           checked={this.props.state.saved.prefs.autoAddTorrents}
           label='Watch for new .torrent files and add them immediately'
           onCheck={(e, value) => { this.handleAutoAddTorrentsChange(e, value) }}
@@ -178,7 +188,7 @@ class PreferencesPage extends React.Component {
     return (
       <Preference>
         <p>GraviTorrent is not currently the default torrent app.</p>
-        <RaisedButton
+        <CustomButton
           className='control'
           onClick={this.handleSetDefaultApp}
           label='Make GraviTorrent the default'
@@ -190,6 +200,13 @@ class PreferencesPage extends React.Component {
   handleStartupChange (e, isChecked) {
     dispatch('updatePreferences', 'startup', isChecked)
   }
+  setWallet() {
+    return (
+      <Preference>
+        <Wallet state={this.props.state} />
+      </Preference>
+    );
+  }
 
   setStartupCheckbox () {
     if (config.IS_PORTABLE) {
@@ -200,6 +217,8 @@ class PreferencesPage extends React.Component {
       <Preference>
         <Checkbox
           className='control'
+          iconStyle={defaultCheckboxIconStyle}
+          checkedIcon={defaultCheckedIcon}
           checked={this.props.state.saved.prefs.startup}
           label='Open GraviTorrent on startup'
           onCheck={this.handleStartupChange}
@@ -213,6 +232,8 @@ class PreferencesPage extends React.Component {
       <Preference>
         <Checkbox
           className='control'
+          iconStyle={defaultCheckboxIconStyle}
+          checkedIcon={defaultCheckedIcon}
           checked={this.props.state.saved.prefs.soundNotifications}
           label='Enable sounds'
           onCheck={this.handleSoundNotificationsChange}
@@ -231,9 +252,9 @@ class PreferencesPage extends React.Component {
 
   render () {
     const style = {
-      color: colors.grey400,
-      marginLeft: 25,
-      marginRight: 25
+      color: 'rgba(255, 255, 255, 0.5)',
+      marginLeft: 16,
+      marginRight: 16,
     }
     return (
       <div style={style}>
@@ -251,6 +272,7 @@ class PreferencesPage extends React.Component {
           {this.setDefaultAppButton()}
         </PreferencesSection>
         <PreferencesSection title='General'>
+          {this.setWallet()}
           {this.setStartupCheckbox()}
           {this.soundNotificationsCheckbox()}
         </PreferencesSection>
@@ -268,12 +290,18 @@ class PreferencesSection extends React.Component {
 
   render () {
     const style = {
-      marginBottom: 25,
-      marginTop: 25
+      // marginBottom: 25,
+      marginTop: 10
+    }
+    const headingStyle = {
+      padding: 12,
+      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      margin: 0,
+      fontSize: 16,
     }
     return (
-      <div style={style}>
-        <Heading level={2}>{this.props.title}</Heading>
+      <div style={style} className='box'>
+        <Heading level={2} style={headingStyle}>{this.props.title}</Heading>
         {this.props.children}
       </div>
     )
@@ -282,7 +310,7 @@ class PreferencesSection extends React.Component {
 
 class Preference extends React.Component {
   render () {
-    const style = { marginBottom: 10 }
+    const style = { margin: 12 }
     return (<div style={style}>{this.props.children}</div>)
   }
 }
