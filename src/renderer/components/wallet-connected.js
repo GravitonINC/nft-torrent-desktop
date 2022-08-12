@@ -5,6 +5,10 @@ const CustomButton = require('./custom-button')
 
 class WalletConnected extends React.Component {
 
+  unlink = () => {
+    alert('Unlink')
+  }
+
   render() {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
@@ -12,15 +16,15 @@ class WalletConnected extends React.Component {
     return (
       <>
         <div className='space-between'>
-          <p>Wallet</p>
-          <a href=''>Unlink</a>
+          <p style={{ color: '#FFFFFF' }}>Wallet</p>
+          <a className='cta' href='javascript:void(0)' onClick={this.unlink}>Unlink</a>
         </div>
         <div className='dark-box'>
           <div className='space-between'>
-            <span>
+            <span style={{ color: '#FFFFFF' }}>
               {displayAccount}
             </span>
-            <span>Linked</span>
+            <span style={{ color: '#BDFF69' }}>Linked</span>
           </div>
         </div>
       </>

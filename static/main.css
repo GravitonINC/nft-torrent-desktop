@@ -1222,3 +1222,7 @@ video::-webkit-media-text-track-container {
   justify-content: space-between;
   align-items: center;
 }
+a.cta {
+  color: rgba(255, 255, 255, 0.6);
+  text-shadow: 1px 1px 94px rgba(0, 0, 0, 0.05);
+}
