@@ -20,6 +20,10 @@ module.exports = class UnlinkWalletModal extends React.Component {
   }
 
   unlinkWallet = () => {
+    const accessToken = this.props.state.saved.auth.accessToken;
+    JwtApi.unlink(accessToken)
+      .then(() => console.log('Unlinked'))
+      .catch(() => console.log('Could not unlink'))
     dispatch('saveJwt')
     dispatch('exitModal')
   }

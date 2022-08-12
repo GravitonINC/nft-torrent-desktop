@@ -26,6 +26,19 @@ module.exports = class JwtController {
     dispatch('stateSaveImmediate');
   }
 
+  savePeerId(peerId) {
+    this.state.saved.peerId = peerId;
+    dispatch('stateSaveImmediate');
+    const jwt = this.state.saved?.auth?.accessToken;
+    if (jwt) {
+        JwtApi.updatePeerId(jwt, peerId)
+          .then(() => console.log('Peer id updated'))
+          .catch(() => console.log('Peer id not updated'))
+    } else {
+      console.log('Skip peer id update - no JWT found')
+    }
+  }
+
   // Shows a modal saying that we have an update
   validateJwt(jwt) {
     if (!jwt) {
@@ -48,7 +61,6 @@ module.exports = class JwtController {
       })
   }
 
-
   enterOtp() {
     this.state.modal = {
       id: 'link-wallet-modal',
@@ -56,7 +68,6 @@ module.exports = class JwtController {
       deleteData: ''
     };
   }
-
 
   unlinkWalletModal() {
     this.state.modal = {

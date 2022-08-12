@@ -344,6 +344,7 @@ const dispatchHandlers = {
 
   loadJwt: () => controllers.jwtController().loadJwt(),
   saveJwt: (jwt) => controllers.jwtController().saveJwt(jwt),
+  savePeerId: (peerId) => controllers.jwtController().savePeerId(peerId),
   validateJwt: (jwt) => controllers.jwtController().validateJwt(jwt),
   exchangeOtp: (otp) => controllers.jwtController().exchangeOtp(otp),
   enterOtp: (otp) => controllers.jwtController().enterOtp(),
@@ -387,6 +388,7 @@ function setupIpc () {
   ipcRenderer.on('windowBoundsChanged', onWindowBoundsChanged)
 
   const tc = controllers.torrent()
+  const jwt = controllers.jwtController()
   ipcRenderer.on('wt-parsed', (e, ...args) => tc.torrentParsed(...args))
   ipcRenderer.on('wt-metadata', (e, ...args) => tc.torrentMetadata(...args))
   ipcRenderer.on('wt-done', (e, ...args) => tc.torrentDone(...args))
@@ -400,7 +402,7 @@ function setupIpc () {
   ipcRenderer.on('wt-poster', (e, ...args) => tc.torrentPosterSaved(...args))
   ipcRenderer.on('wt-audio-metadata', (e, ...args) => tc.torrentAudioMetadata(...args))
   ipcRenderer.on('wt-server-running', (e, ...args) => tc.torrentServerRunning(...args))
-  ipcRenderer.on('wt-update-peer-id', (e, ...args) => console.log('webtorrent: wt-update-peer-id', ...args))
+  ipcRenderer.on('wt-update-peer-id', (e, ...args) => jwt.savePeerId(...args))
 
   ipcRenderer.on('wt-uncaught-error', (e, err) => telemetry.logUncaughtError('webtorrent', err))
 

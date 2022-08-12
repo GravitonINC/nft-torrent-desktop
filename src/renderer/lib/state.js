@@ -124,6 +124,7 @@ function setupStateSaved () {
       address: '',
       accessToken: ''
     },
+    peerId: '',
     prefs: {
       downloadPath: config.DEFAULT_DOWNLOAD_PATH,
       isFileHandler: false,

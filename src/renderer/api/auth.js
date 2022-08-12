@@ -29,12 +29,50 @@ module.exports = class JwtApi {
     return promise;
   }
 
-  static exchangeOtp(code) {
+  static unlink(jwt) {
+    const {promise, reject, resolve} = promiseFactory();
+    get.concat({
+      url: `${GRAVITON_TORRENT_URL}/auth/unlink`,
+      json: true,
+      body: { reason: 'Unlinked from Desktop app' },
+      method: 'POST',
+      headers: { Authorization: `Bearer ${jwt}` }
+    }, (err, res, data) => {
+      if (err) return reject(err);
+      if (res.statusCode >= 400) return resolve({ success: false, res, });
+
+      resolve({
+        success: true,
+      });
+    });
+    return promise;
+  }
+
+  static updatePeerId(jwt, peerId) {
+    const {promise, reject, resolve} = promiseFactory();
+    get.concat({
+      url: `${GRAVITON_TORRENT_URL}/auth/peer-id`,
+      json: true,
+      body: { peerId },
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${jwt}` }
+    }, (err, res, data) => {
+      if (err) return reject(err);
+      if (res.statusCode >= 400) return resolve({ success: false, res, });
+
+      resolve({
+        success: true,
+      });
+    });
+    return promise;
+  }
+
+  static exchangeOtp({code, deviceDescription, peerId}) {
     const {promise, reject, resolve} = promiseFactory();
     get.concat({
       url: `${GRAVITON_TORRENT_URL}/auth/otp-login`,
       json: true,
-      body: { code },
+      body: { code, deviceDescription, peerId },
       method: 'POST',
     }, (err, res, data) => {
       if (err) return reject(err);

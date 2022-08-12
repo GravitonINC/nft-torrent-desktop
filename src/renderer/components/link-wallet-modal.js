@@ -13,6 +13,7 @@ const { dispatch, dispatcher } = require('../lib/dispatcher')
 const { shell } = require('electron')
 const config = require('../../config')
 const JwtApi = require('../api/auth');
+const getDeviceDescription = require('../helpers/get-device-desc')
 
 module.exports = class LinkWalletModal extends React.Component {
   state = {
@@ -30,10 +31,15 @@ module.exports = class LinkWalletModal extends React.Component {
   }
 
   validateOtp = () => {
-    const otp = this.otp.input.value;
-    if (!otp.length) return;
+    const peerId = this.props.state.saved.peerId;
+    const code = this.otp.input.value;
+    if (!code.length) return;
     this.setState({ loading: true, error: '' });
-    JwtApi.exchangeOtp(otp)
+    JwtApi.exchangeOtp({
+      code,
+      deviceDescription: getDeviceDescription(),
+      peerId
+    })
       .then(({ success, accessToken, address, res }) => {
         if (success) {
           dispatch('saveJwt', {
