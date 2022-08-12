@@ -284,8 +284,10 @@ table {
   width: calc(100% - 20px);
   max-width: 600px;
   box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.4);
-  background-color: #eee;
-  color: #222;
+  background-color: #29233A;
+  color: #FFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
   padding: 20px;
 }
 
@@ -370,10 +372,13 @@ textarea,
 
 .torrent-wrapper {
   padding: 15px;
+  margin: 15px 0;
+}
+
+.box {
   border: 1px solid #ffffff33;
   border-radius: 4px;
   background: #362e5f8c;
-  margin: 15px 0;
 }
 
 .torrent-list {
@@ -501,7 +506,7 @@ textarea,
 
 }
 
-/* 
+/*
 .torrent .play {
   position: absolute;
   top: 23px;
@@ -1153,4 +1158,50 @@ video::-webkit-media-text-track-container {
 
 .control * {
   cursor: default !important;
+}
+
+.gradient-border {
+  position: relative;
+  padding: 0px;
+  position: relative;
+  box-shadow: 0px 5px 10px rgba(170, 103, 200, 0.15);
+  border-radius: 10px;
+  background-clip: padding-box;
+  transition: box-shadow 200ms linear;
+  cursor: pointer;
+  background-color: #fff;
+  margin: 2px;
+}
+
+.gradient-border:hover {
+    box-shadow: 0px 10px 35px rgba(170, 103, 200, 0.15);
+}
+.gradient-border:hover::before {
+  opacity: 5%
+}
+.gradient-border::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  background: linear-gradient(120deg, #ff7f69 5%, #ff2d83 30%, #6695ff 85%);
+  z-index: -1;
+  border-radius: 11px;
+}
+
+.gradient-border::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(120deg, #ff7f69 5%, #ff2d83 30%, #6695ff 85%);
+  border-radius: 23px;
+  opacity: 0;
+  transition: opacity 200ms linear;
 }

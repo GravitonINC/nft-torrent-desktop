@@ -70,7 +70,7 @@ module.exports = class TorrentList extends React.Component {
       <div
         id={torrentSummary.testID && ('torrent-' + torrentSummary.testID)}
         key={torrentSummary.torrentKey}
-        className={'torrent-wrapper'}
+        className={'torrent-wrapper box'}
         onContextMenu={infoHash && dispatcher('openTorrentContextMenu', infoHash)}
         onClick={infoHash && dispatcher('toggleSelectTorrent', infoHash)}
       >
