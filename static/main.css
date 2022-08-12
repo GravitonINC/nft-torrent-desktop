@@ -377,8 +377,15 @@ textarea,
 
 .box {
   border: 1px solid #ffffff33;
-  border-radius: 4px;
+  border-radius: 6px;
   background: #362e5f8c;
+}
+
+.dark-box {
+  border-radius: 6px;
+  background: rgba(17, 13, 33, 0.2);
+  box-shadow: rgb(17 13 33 / 20%) 0px 4px 10px inset;
+  padding: 12px 9px;
 }
 
 .torrent-list {
