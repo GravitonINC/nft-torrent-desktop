@@ -1,5 +1,6 @@
 const React = require('react')
 const Chip = require('material-ui/Chip').default
+const CircularProgress = require('material-ui/CircularProgress').default
 const CustomButton = require('./custom-button')
 const TextField = require('./custom-text-field')
 const GradientBorderButton = require('./gradient-border-button')
@@ -10,11 +11,48 @@ const ModalOKCancel = require('./modal-ok-cancel')
 const { dispatch, dispatcher } = require('../lib/dispatcher')
 const { shell } = require('electron')
 const config = require('../../config')
+const JwtApi = require('../api/auth');
 
 module.exports = class EnterOtpModal extends React.Component {
+  state = {
+    loading: false,
+    error: ''
+  }
 
   openWebApp = () => {
     shell.openExternal(config.GRAVITON_MAIN_WEB_APP_URL);
+  }
+
+
+  handleKeyDown = (e) => {
+    if (e.which === 13) this.validateOtp();
+  }
+
+  validateOtp = () => {
+    const otp = this.otp.input.value;
+    if (!otp.length) return;
+    this.setState({ loading: true, error: '' });
+    JwtApi.exchangeOtp(otp)
+      .then(({ success, accessToken, res }) => {
+        if (success) {
+          dispatch('validateJwt', accessToken);
+          setTimeout(() => {
+            this.setState({ loading: false, error: '' });
+            dispatch('exitModal')
+          }, 1000);
+          return;
+        }
+        this.setState({
+          loading: false,
+          error: 'This code is not valid. Remember that OTP codes expire after 5 minutes.'
+        });
+      })
+      .catch(e => {
+        this.setState({
+          loading: false,
+          error: e.toString()
+        });
+      })
   }
 
   render() {
@@ -48,15 +86,18 @@ module.exports = class EnterOtpModal extends React.Component {
             id='enter-otp-field'
             className='control'
             refX={(c) => { this.otp = c }}
-            inputStyle={{letterSpacing: 3}}
+            inputStyle={{ letterSpacing: 3 }}
             fullWidth
-            onKeyDown={handleKeyDown.bind(this)}
+            onKeyDown={this.handleKeyDown}
+            errorText={this.state.error}
           />
           <GradientButton
             label='Link wallet'
             fullWidth
-            onClick={this.openWebApp}
-          />
+            onClick={this.validateOtp}
+          >
+            {this.state.loading ? <CircularProgress color='#ffffff' size={15} thickness={2} /> : null}
+          </GradientButton>
         </div>
         {/* <ModalOKCancel
           cancelText='CANCEL'
@@ -77,13 +118,4 @@ module.exports = class EnterOtpModal extends React.Component {
       this.otp.input.select()
     }
   }
-}
-
-function handleKeyDown(e) {
-  if (e.which === 13) handleOK.call(this) /* hit Enter to submit */
-}
-
-function handleOK() {
-  dispatch('exitModal')
-  dispatch('exchangeOtp', this.otp.input.value)
 }
