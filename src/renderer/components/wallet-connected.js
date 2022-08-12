@@ -4,11 +4,6 @@ const { dispatcher, dispatch } = require('../lib/dispatcher')
 const CustomButton = require('./custom-button')
 
 class WalletConnected extends React.Component {
-
-  unlink = () => {
-    alert('Unlink')
-  }
-
   render() {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
@@ -17,7 +12,7 @@ class WalletConnected extends React.Component {
       <>
         <div className='space-between'>
           <p style={{ color: '#FFFFFF' }}>Wallet</p>
-          <a className='cta' href='javascript:void(0)' onClick={this.unlink}>Unlink</a>
+          <a className='cta' href='javascript:void(0)' onClick={dispatcher('unlinkWalletModal')}>Unlink</a>
         </div>
         <div className='dark-box'>
           <div className='space-between'>

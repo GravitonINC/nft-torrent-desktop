@@ -58,4 +58,11 @@ module.exports = class JwtController {
   }
 
 
+  unlinkWalletModal() {
+    this.state.modal = {
+      id: 'unlink-wallet-modal',
+    };
+  }
+
+
 }

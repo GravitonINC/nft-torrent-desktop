@@ -347,6 +347,7 @@ const dispatchHandlers = {
   validateJwt: (jwt) => controllers.jwtController().validateJwt(jwt),
   exchangeOtp: (otp) => controllers.jwtController().exchangeOtp(otp),
   enterOtp: (otp) => controllers.jwtController().enterOtp(),
+  unlinkWalletModal: (otp) => controllers.jwtController().unlinkWalletModal(),
 
   // Everything else
   onOpen,

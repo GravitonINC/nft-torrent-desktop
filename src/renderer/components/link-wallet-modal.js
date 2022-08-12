@@ -14,7 +14,7 @@ const { shell } = require('electron')
 const config = require('../../config')
 const JwtApi = require('../api/auth');
 
-module.exports = class EnterOtpModal extends React.Component {
+module.exports = class LinkWalletModal extends React.Component {
   state = {
     loading: false,
     error: ''
@@ -122,12 +122,6 @@ module.exports = class EnterOtpModal extends React.Component {
             {this.state.loading ? <CircularProgress color='#ffffff' size={15} thickness={2} /> : null}
           </GradientButton>
         </div>
-        {/* <ModalOKCancel
-          cancelText='CANCEL'
-          onCancel={dispatcher('exitModal')}
-          okText='OK'
-          onOK={handleOK.bind(this)}
-        /> */}
       </div>
     )
   }
