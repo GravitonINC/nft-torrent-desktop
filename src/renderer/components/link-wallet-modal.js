@@ -1,8 +1,9 @@
 const React = require('react')
-const TextField = require('material-ui/TextField').default
 const Chip = require('material-ui/Chip').default
 const CustomButton = require('./custom-button')
+const TextField = require('./custom-text-field')
 const GradientBorderButton = require('./gradient-border-button')
+const GradientButton = require('./gradient-button')
 const { clipboard } = require('electron')
 
 const ModalOKCancel = require('./modal-ok-cancel')
@@ -19,7 +20,7 @@ module.exports = class EnterOtpModal extends React.Component {
   render() {
     const contentStyle = {
       display: 'grid',
-      gap: 8
+      gap: 14
     }
     return (
       <div className='enter-otp-modal'>
@@ -46,17 +47,23 @@ module.exports = class EnterOtpModal extends React.Component {
           <TextField
             id='enter-otp-field'
             className='control'
-            ref={(c) => { this.otp = c }}
+            refX={(c) => { this.otp = c }}
+            inputStyle={{letterSpacing: 3}}
             fullWidth
             onKeyDown={handleKeyDown.bind(this)}
           />
+          <GradientButton
+            label='Link wallet'
+            fullWidth
+            onClick={this.openWebApp}
+          />
         </div>
-        <ModalOKCancel
+        {/* <ModalOKCancel
           cancelText='CANCEL'
           onCancel={dispatcher('exitModal')}
           okText='OK'
           onOK={handleOK.bind(this)}
-        />
+        /> */}
       </div>
     )
   }
