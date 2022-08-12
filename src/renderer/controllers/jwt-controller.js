@@ -78,7 +78,7 @@ module.exports = class JwtController {
 
   enterOtp() {
     this.state.modal = {
-      id: 'enter-otp-modal',
+      id: 'link-wallet-modal',
       infoHash: '',
       deleteData: ''
     };
