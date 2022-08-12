@@ -1,6 +1,5 @@
 const { dispatch } = require('../lib/dispatcher')
-const get = require('simple-get');
-const { GRAVITON_TORRENT_URL } = require('../../config');
+const JwtApi = require('../api/auth');
 
 // Controls the session state
 module.exports = class JwtController {
@@ -33,48 +32,22 @@ module.exports = class JwtController {
       console.log('No JWT found');
       return;
     }
-    get.concat({
-      url: `${GRAVITON_TORRENT_URL}/auth/authenticated`,
-      json: true,
-      headers: { Authorization: `Bearer ${jwt}` }
-    }, (err, res, data) => {
-      if (err) {
+    JwtApi.validateJwt(jwt)
+      .then(({success, res, address }) => {
+        if (success) {
+          return dispatch('saveJwt', {
+            address: address,
+            accessToken: jwt
+          });
+        }
+        if (res.statusCode === 401) dispatch('saveJwt');
+        dispatch('error', new Error(`Error restoring session, status code: ${res.statusCode} ${res.message}`));
+      })
+      .catch(err => {
         dispatch('error', err);
-        return;
-      }
-      if (res.statusCode >= 400) {
-        dispatch('saveJwt');
-        dispatch('error', new Error(`Error restoring session, status code: ${res.statusCode}`));
-        return;
-      }
-
-      dispatch('saveJwt', {
-        address: data.address,
-        accessToken: jwt
-      });
-    });
+      })
   }
 
-  exchangeOtp(code) {
-    get.concat({
-      url: `${GRAVITON_TORRENT_URL}/auth/otp-login`,
-      json: true,
-      body: { code },
-      method: 'POST',
-    }, (err, res, data) => {
-      if (err) {
-        dispatch('saveJwt');
-        dispatch('error', err);
-        return;
-      }
-      if (res.statusCode >= 400 || !data.access_token) {
-        dispatch('saveJwt');
-        dispatch('error', new Error(`Error logging in, status code: ${res.statusCode} ${res.message}`));
-        return;
-      }
-      dispatch('validateJwt', data.access_token);
-    });
-  }
 
   enterOtp() {
     this.state.modal = {
