@@ -81,12 +81,12 @@ const all = {
   asar: {
     // A glob expression, that unpacks the files with matching names to the
     // "app.asar.unpacked" directory.
-    unpack: 'WebTorrent*'
+    unpack: 'NFTTorrent*'
   },
 
   // The build version of the application. Maps to the FileVersion metadata property on
   // Windows, and CFBundleVersion on Mac. Note: Windows requires the build version to
-  // start with a number. We're using the version of the underlying WebTorrent library.
+  // start with a number. We're using the version of the underlying NFTTorrent library.
   buildVersion: require('webtorrent/package.json').version,
 
   // The application source directory.
@@ -542,7 +542,7 @@ function buildLinux (cb) {
       src: filesPath + '/',
       dest: DIST_PATH,
       arch: destArch,
-      bin: 'WebTorrent',
+      bin: 'NFTTorrent',
       icon: {
         '48x48': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/48x48/apps/webtorrent-desktop.png'),
         '256x256': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png')
@@ -586,7 +586,7 @@ function buildLinux (cb) {
       src: filesPath + '/',
       dest: DIST_PATH,
       arch: destArch,
-      bin: 'WebTorrent',
+      bin: 'NFTTorrent',
       icon: {
         '48x48': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/48x48/apps/webtorrent-desktop.png'),
         '256x256': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png')
