@@ -62,7 +62,7 @@ class PreferencesPage extends React.Component {
           iconStyle={defaultCheckboxIconStyle}
           checkedIcon={defaultCheckedIcon}
           checked={!this.props.state.saved.prefs.openExternalPlayer}
-          label='Play torrent media files using GraviTorrent'
+          label='Play torrent media files using NFT Torrent'
           onCheck={this.handleOpenExternalPlayerChange}
         />
       </Preference>
@@ -181,17 +181,17 @@ class PreferencesPage extends React.Component {
     if (isFileHandler) {
       return (
         <Preference>
-          <p>GraviTorrent is your default torrent app. Hooray!</p>
+          <p>NFT Torrent is your default torrent app. Hooray!</p>
         </Preference>
       )
     }
     return (
       <Preference>
-        <p>GraviTorrent is not currently the default torrent app.</p>
+        <p>NFT Torrent is not currently the default torrent app.</p>
         <CustomButton
           className='control'
           onClick={this.handleSetDefaultApp}
-          label='Make GraviTorrent the default'
+          label='Make NFT Torrent the default'
         />
       </Preference>
     )
@@ -221,7 +221,7 @@ class PreferencesPage extends React.Component {
           iconStyle={defaultCheckboxIconStyle}
           checkedIcon={defaultCheckedIcon}
           checked={this.props.state.saved.prefs.startup}
-          label='Open GraviTorrent on startup'
+          label='Open NFT Torrent on startup'
           onCheck={this.handleStartupChange}
         />
       </Preference>

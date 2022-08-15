@@ -3,7 +3,7 @@ const path = require('path')
 const { app } = require('electron')
 const arch = require('arch')
 
-const APP_NAME = 'GraviTorrent'
+const APP_NAME = 'NFT Torrent'
 const APP_TEAM = 'Graviton'
 const APP_VERSION = require('../package.json').version
 
