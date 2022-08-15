@@ -121,14 +121,14 @@ const darwin = {
   arch: 'x64',
 
   // The bundle identifier to use in the application's plist (Mac only).
-  appBundleId: 'io.webtorrent.webtorrent',
+  appBundleId: 'xyz.graviton.webtorrent',
 
   // The application category type, as shown in the Finder via "View" -> "Arrange by
   // Application Category" when viewing the Applications directory (Mac only).
   appCategoryType: 'public.app-category.utilities',
 
   // The bundle identifier to use in the application helper's plist (Mac only).
-  helperBundleId: 'io.webtorrent.webtorrent-helper',
+  helperBundleId: 'xyz.graviton.webtorrent-helper',
 
   // Application icon.
   icon: config.APP_ICON + '.icns'
@@ -285,18 +285,21 @@ function buildDarwin (cb) {
         verbose: true,
         app: appPath,
         platform: 'darwin',
-        identity: 'Developer ID Application: WebTorrent, LLC (5MAMC8G3L8)',
+        identity: 'Developer ID Application: Graviton Inc. (V75C78WU28)',
         hardenedRuntime: true,
         entitlements: path.join(config.ROOT_PATH, 'bin', 'darwin-entitlements.plist'),
         'entitlements-inherit': path.join(config.ROOT_PATH, 'bin', 'darwin-entitlements.plist'),
-        'signature-flags': 'library'
+        'signature-flags': 'library',
+        'gatekeeper-assess': false
       }
 
       const notarizeOpts = {
         appBundleId: darwin.appBundleId,
         appPath,
-        appleId: 'feross@feross.org',
-        appleIdPassword: '@keychain:AC_PASSWORD'
+        appleId: 'braulio@graviton.xyz',
+        appleIdPassword: '@keychain:AC_PASSWORD',
+        teamId: 'V75C78WU28',
+        tool: 'notarytool'
       }
 
       console.log('Mac: Signing app...')
