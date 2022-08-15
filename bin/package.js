@@ -267,6 +267,7 @@ function buildDarwin (cb) {
     function signApp (cb) {
       const sign = require('electron-osx-sign')
       const { notarize } = require('electron-notarize')
+      const { appleId, appleIdPassword, teamId } = require('../secrets.json');
 
       /*
        * Sign the app with Apple Developer ID certificates. We sign the app for 2 reasons:
@@ -296,9 +297,9 @@ function buildDarwin (cb) {
       const notarizeOpts = {
         appBundleId: darwin.appBundleId,
         appPath,
-        appleId: 'braulio@graviton.xyz',
-        appleIdPassword: '@keychain:AC_PASSWORD',
-        teamId: 'V75C78WU28',
+        appleId,
+        appleIdPassword,
+        teamId,
         tool: 'notarytool'
       }
 
