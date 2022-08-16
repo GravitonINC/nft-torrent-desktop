@@ -1,3 +1,23 @@
+## Prerequisites
+
+- Xcode 10 or later installed on your Mac.
+
+- An Apple Developer account.
+
+- An app-specific password for your ADC account’s Apple ID.
+
+- Developer ID Application. After you get the certificates, and open each so that they are installed in your keychain. It's recommended to install them in login.keychain so electron-osx-sign and electron-osx-flat could recognize them automatically for ease of looking them up.
+
+- bin/secrets.js file
+
+  The file includes some credentials and it is not in the source code. `bin/secrets.example` is an example of this file. In includes these parameters:
+
+  - appleId: The username of your apple developer account.
+
+  - appleIdPassword: The app-specific password (not your Apple ID password). How to generate a password? https://support.apple.com/en-us/HT204397
+
+  - teamId: The team ID you want to notarize under.
+
 ## Release Process
 
 ### 1. Create a new version
@@ -67,7 +87,7 @@
   ```
 
   Follow the URL to a newly created Github release page. Manually upload the binaries from
-  `webtorrent-desktop/dist/`. Open the previous release in another tab, and make sure that you
+  `nft-torrent-desktop/dist/`. Open the previous release in another tab, and make sure that you
   are uploading the same set of files, no more, no less.
 
 ### 3. Test it
@@ -80,7 +100,7 @@
   been downloaded, even though the files are byte for byte identical. This ensures that the
   codesigning worked and is valid.
 
-- Smoke test WebTorrent Desktop on each platform. Before a release, check that the following basic use cases work correctly:
+- Smoke test NFTTorrent Desktop on each platform. Before a release, check that the following basic use cases work correctly:
 
   1. Click "Play" to stream a built-in torrent (e.g. Sintel)
     - Ensure that seeking to undownloaded region works and plays immediately.
@@ -98,12 +118,12 @@
   5. Create and seed a new a torrent via drag-and-drop.
     - Ensure that the torrent gets created and seeding begins.
 
-### 4. Ship it
+### 4. Ship it (TBD)
 
-- Update the website
+- Update the current version
 
-  Create a pull request in [webtorrent.io](https://github.com/webtorrent/webtorrent.io). Update
-  `config.js`, updating the desktop app version.
+  TODO: Update the current version in the DB
 
-  Once this PR is merged and Feross redeploys the WebTorrent website,
-  hundreds of thousands of users around the world will start auto updating. **Merge with care.**
+  TODO: Endpoint to expose the v information
+
+  TODO: Use the endpoint in the desktop app
