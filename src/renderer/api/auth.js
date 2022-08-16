@@ -1,5 +1,5 @@
 const get = require('simple-get');
-const { GRAVITON_TORRENT_URL } = require('../../config');
+const { GRAVITON_TORRENT_API_URL } = require('../../config');
 
 const promiseFactory = () => {
   let resolve, reject;
@@ -13,7 +13,7 @@ module.exports = class JwtApi {
   static validateJwt(jwt) {
     const {promise, reject, resolve} = promiseFactory();
     get.concat({
-      url: `${GRAVITON_TORRENT_URL}/auth/authenticated`,
+      url: `${GRAVITON_TORRENT_API_URL}/auth/authenticated`,
       json: true,
       headers: { Authorization: `Bearer ${jwt}` }
     }, (err, res, data) => {
@@ -32,7 +32,7 @@ module.exports = class JwtApi {
   static unlink(jwt) {
     const {promise, reject, resolve} = promiseFactory();
     get.concat({
-      url: `${GRAVITON_TORRENT_URL}/auth/unlink`,
+      url: `${GRAVITON_TORRENT_API_URL}/auth/unlink`,
       json: true,
       body: { reason: 'Unlinked from Desktop app' },
       method: 'POST',
@@ -51,7 +51,7 @@ module.exports = class JwtApi {
   static updatePeerId(jwt, peerId) {
     const {promise, reject, resolve} = promiseFactory();
     get.concat({
-      url: `${GRAVITON_TORRENT_URL}/auth/peer-id`,
+      url: `${GRAVITON_TORRENT_API_URL}/auth/peer-id`,
       json: true,
       body: { peerId },
       method: 'PUT',
@@ -70,7 +70,7 @@ module.exports = class JwtApi {
   static exchangeOtp({code, deviceDescription, peerId}) {
     const {promise, reject, resolve} = promiseFactory();
     get.concat({
-      url: `${GRAVITON_TORRENT_URL}/auth/otp-login`,
+      url: `${GRAVITON_TORRENT_API_URL}/auth/otp-login`,
       json: true,
       body: { code, deviceDescription, peerId },
       method: 'POST',

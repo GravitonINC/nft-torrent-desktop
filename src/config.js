@@ -18,7 +18,7 @@ const UI_HEADER_HEIGHT = 38
 const UI_TORRENT_HEIGHT = 100
 
 module.exports = {
-  GRAVITON_TORRENT_URL: 'http://0.0.0.0:3001',
+  GRAVITON_TORRENT_API_URL: 'http://3.89.131.85:3001',
   GRAVITON_MAIN_WEB_APP_URL: 'http://localhost:3000/torrent/tnfts',
   ANNOUNCEMENT_URL: 'https://webtorrent.io/desktop/announcement',
   AUTO_UPDATE_URL: 'https://webtorrent.io/desktop/update',
