@@ -1,5 +1,20 @@
 # WebTorrent Desktop Version History
 
+## v0.100.0 - 2022-08-16
+
+### Added
+
+- Support to link your wallet
+
+### Changed
+
+- App theme, uses Graviton theme now.
+
+### Fixed
+
+- Pack Windows, OSX and Linux
+- Sign and notarize OSX build
+
 ## v0.24.0 - 2020-08-28
 
 ### Added
