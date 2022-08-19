@@ -13,7 +13,7 @@ module.exports = class JwtApi {
   static validateJwt(jwt) {
     const {promise, reject, resolve} = promiseFactory();
     get.concat({
-      url: `${GRAVITON_TORRENT_API_URL}/auth/authenticated`,
+      url: `${GRAVITON_TORRENT_API_URL}/auth/me`,
       json: true,
       headers: { Authorization: `Bearer ${jwt}` }
     }, (err, res, data) => {
