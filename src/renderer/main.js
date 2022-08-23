@@ -352,6 +352,7 @@ const dispatchHandlers = {
 
   // Everything else
   onOpen,
+  onDeepLink,
   error: onError,
   uncaughtError: (proc, err) => telemetry.logUncaughtError(proc, err),
   stateSave: () => State.save(state),
@@ -516,6 +517,20 @@ function onOpen (files) {
   } else {
     // Drop files onto any other screen: show error
     return onError('Please go back to the torrent list before creating a new torrent.')
+  }
+
+  update()
+}
+
+// Called when the user opens a deeplink (nft-torrent://preferences) to the app
+function onDeepLink (deeplink) {
+  if (deeplink === 'preferences') {
+    // Drop torrents onto the app: go to home screen, add torrents, no matter what
+    dispatch('preferences')
+    // All .torrent files? Add them.
+  } else {
+    // Drop files onto any other screen: show error
+    console.log(`Deeplink ${deeplink} not supported`)
   }
 
   update()
