@@ -1,6 +1,6 @@
 # WebTorrent Desktop Version History
 
-## v0.100.2 - 2022-08-23
+## v0.101.0 - 2022-08-23
 
 ### Added
 
