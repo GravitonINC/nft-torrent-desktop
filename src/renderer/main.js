@@ -525,14 +525,10 @@ function onOpen (files) {
 // Called when the user opens a deeplink (nft-torrent://preferences) to the app
 function onDeepLink (deeplink) {
   if (deeplink === 'preferences') {
-    // Drop torrents onto the app: go to home screen, add torrents, no matter what
     dispatch('preferences')
-    // All .torrent files? Add them.
   } else {
-    // Drop files onto any other screen: show error
     console.log(`Deeplink ${deeplink} not supported`)
   }
-
   update()
 }
 
