@@ -1,6 +1,12 @@
 # WebTorrent Desktop Version History
 
-## v0.100.0 - 2022-08-16
+## v0.101.0 - 2022-08-23
+
+### Added
+
+- Support to deep link to preferences, `nft-torrent://preferences`.
+
+## v0.100.1 - 2022-08-16
 
 ### Added
 

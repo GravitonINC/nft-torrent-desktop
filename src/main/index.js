@@ -207,6 +207,7 @@ function sliceArgv (argv) {
 
 function processArgv (argv) {
   const torrentIds = []
+  let deeplink = '';
   argv.forEach(arg => {
     if (arg === '-n' || arg === '-o' || arg === '-u') {
       // Critical path: Only load the 'dialog' package if it is needed
@@ -227,6 +228,8 @@ function processArgv (argv) {
       // Ignore Spectron flags
     } else if (arg === 'data:,') {
       // Ignore weird Spectron argument
+    } else if(arg.startsWith('nft-torrent://')) {
+      deeplink = arg.replace('nft-torrent://', '')
     } else if (arg !== '.') {
       // Ignore '.' argument, which gets misinterpreted as a torrent id, when a
       // development copy of WebTorrent is started while a production version is
@@ -234,7 +237,9 @@ function processArgv (argv) {
       torrentIds.push(arg)
     }
   })
-  if (torrentIds.length > 0) {
+  if (deeplink) {
+    windows.main.dispatch('onDeepLink', deeplink)
+  } else if (torrentIds.length > 0) {
     windows.main.dispatch('onOpen', torrentIds)
   }
 }

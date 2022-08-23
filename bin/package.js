@@ -223,6 +223,12 @@ function buildDarwin (cb) {
         CFBundleURLIconFile: path.basename(config.APP_FILE_ICON) + '.icns',
         CFBundleURLName: 'BitTorrent Stream-Magnet URL',
         CFBundleURLSchemes: ['stream-magnet']
+      },
+      {
+        CFBundleTypeRole: 'Editor',
+        CFBundleURLIconFile: path.basename(config.APP_FILE_ICON) + '.icns',
+        CFBundleURLName: 'NFTTorrent URL',
+        CFBundleURLSchemes: ['nft-torrent']
       }
     ]
 
@@ -548,7 +554,7 @@ function buildLinux (cb) {
         '256x256': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png')
       },
       categories: ['Network', 'FileTransfer', 'P2P'],
-      mimeType: ['application/x-bittorrent', 'x-scheme-handler/magnet', 'x-scheme-handler/stream-magnet'],
+      mimeType: ['application/x-bittorrent', 'x-scheme-handler/magnet', 'x-scheme-handler/stream-magnet', 'x-scheme-handler/nft-torrent'],
       desktopTemplate: path.join(config.STATIC_PATH, 'linux/webtorrent-desktop.ejs'),
       lintianOverrides: [
         'unstripped-binary-or-object',
@@ -592,7 +598,7 @@ function buildLinux (cb) {
         '256x256': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png')
       },
       categories: ['Network', 'FileTransfer', 'P2P'],
-      mimeType: ['application/x-bittorrent', 'x-scheme-handler/magnet', 'x-scheme-handler/stream-magnet'],
+      mimeType: ['application/x-bittorrent', 'x-scheme-handler/magnet', 'x-scheme-handler/stream-magnet', 'x-scheme-handler/nft-torrent'],
       desktopTemplate: path.join(config.STATIC_PATH, 'linux/webtorrent-desktop.ejs')
     }
 

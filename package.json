@@ -1,7 +1,7 @@
 {
   "name": "nfttorrent-desktop",
   "description": "WebTorrent, the streaming torrent client. For Mac, Windows, and Linux.",
-  "version": "0.100.1",
+  "version": "0.101.0",
   "author": {
     "name": "Graviton",
     "email": "technology@graviton.xyz",
