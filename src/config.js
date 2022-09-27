@@ -17,15 +17,21 @@ const IS_PORTABLE = isPortable()
 const UI_HEADER_HEIGHT = 38
 const UI_TORRENT_HEIGHT = 100
 
+const envSettings = IS_PRODUCTION ? {
+  apiBase: 'https://dev.nft-torrent-backend.graviton.xyz'
+} : {
+  apiBase: 'https://nft-torrent-backend.graviton.xyz'
+};
+
 module.exports = {
-  GRAVITON_TORRENT_API_URL: 'http://3.89.131.85:3001',
-  GRAVITON_MAIN_WEB_APP_URL: 'http://localhost:3000/torrent/tnfts',
+  GRAVITON_TORRENT_API_URL: envSettings.apiBase,
+  GRAVITON_MAIN_WEB_APP_URL: 'https://app.graviton.xyz/update',
   ANNOUNCEMENT_URL: 'https://webtorrent.io/desktop/announcement',
-  AUTO_UPDATE_URL: 'https://webtorrent.io/desktop/update',
+  AUTO_UPDATE_URL: `${envSettings.apiBase}/update`,
   CRASH_REPORT_URL: 'https://webtorrent.io/desktop/crash-report',
   TELEMETRY_URL: 'https://webtorrent.io/desktop/telemetry',
 
-  APP_COPYRIGHT: `Copyright © 2014-${new Date().getFullYear()} ${APP_TEAM}`,
+  APP_COPYRIGHT: `Copyright © 2021-${new Date().getFullYear()} ${APP_TEAM}`,
   APP_FILE_ICON: path.join(__dirname, '..', 'static', 'WebTorrentFile'),
   APP_ICON: path.join(__dirname, '..', 'static', 'WebTorrent'),
   APP_NAME,
@@ -72,13 +78,13 @@ module.exports = {
 
   DEFAULT_DOWNLOAD_PATH: getDefaultDownloadPath(),
 
-  GITHUB_URL: 'https://github.com/webtorrent/webtorrent-desktop',
-  GITHUB_URL_ISSUES: 'https://github.com/webtorrent/webtorrent-desktop/issues',
-  GITHUB_URL_RAW: 'https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/master',
-  GITHUB_URL_RELEASES: 'https://github.com/webtorrent/webtorrent-desktop/releases',
+  GITHUB_URL: 'https://github.com/GravitonINC/nft-torrent-desktop',
+  GITHUB_URL_ISSUES: 'https://github.com/GravitonINC/nft-torrent-desktop/issues',
+  GITHUB_URL_RAW: 'https://github.com/GravitonINC/nft-torrent-desktop/master',
+  GITHUB_URL_RELEASES: 'https://github.com/GravitonINC/nft-torrent-desktop/releases',
 
-  HOME_PAGE_URL: 'https://webtorrent.io',
-  TWITTER_PAGE_URL: 'https://twitter.com/WebTorrentApp',
+  HOME_PAGE_URL: 'https://app.graviton.xyz',
+  TWITTER_PAGE_URL: 'https://twitter.com/GravitonXYZ',
 
   IS_PORTABLE,
   IS_PRODUCTION,
