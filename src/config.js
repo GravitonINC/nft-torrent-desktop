@@ -4,7 +4,7 @@ const { app } = require('electron')
 const arch = require('arch')
 
 const APP_NAME = 'NFTTorrent'
-const APP_TEAM = 'Graviton'
+const APP_TEAM = 'Graviton Inc.'
 const APP_VERSION = require('../package.json').version
 
 const IS_TEST = isTest()
