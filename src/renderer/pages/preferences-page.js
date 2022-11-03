@@ -259,6 +259,9 @@ class PreferencesPage extends React.Component {
     }
     return (
       <div style={style}>
+        <PreferencesSection title='Wallet'>
+          {this.setWallet()}
+        </PreferencesSection>
         <PreferencesSection title='Folders'>
           {this.downloadPathSelector()}
           {this.autoAddTorrentsCheckbox()}
@@ -273,7 +276,6 @@ class PreferencesPage extends React.Component {
           {this.setDefaultAppButton()}
         </PreferencesSection>
         <PreferencesSection title='General'>
-          {this.setWallet()}
           {this.setStartupCheckbox()}
           {this.soundNotificationsCheckbox()}
         </PreferencesSection>

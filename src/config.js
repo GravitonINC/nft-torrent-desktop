@@ -18,14 +18,16 @@ const UI_HEADER_HEIGHT = 38
 const UI_TORRENT_HEIGHT = 100
 
 const envSettings = IS_PRODUCTION ? {
-  apiBase: 'https://dev.nft-torrent-backend.graviton.xyz'
-} : {
   apiBase: 'https://nft-torrent-backend.graviton.xyz'
+} : {
+  apiBase: 'https://dev.nft-torrent-backend.graviton.xyz'
 };
+
+const gravitonApp = IS_PRODUCTION ? 'https://app.graviton.xyz/torrent' : 'https://dev.app.graviton.xyz/torrent';
 
 module.exports = {
   GRAVITON_TORRENT_API_URL: envSettings.apiBase,
-  GRAVITON_MAIN_WEB_APP_URL: 'https://app.graviton.xyz/update',
+  GRAVITON_MAIN_WEB_APP_URL: gravitonApp,
   ANNOUNCEMENT_URL: 'https://webtorrent.io/desktop/announcement',
   AUTO_UPDATE_URL: `${envSettings.apiBase}/update`,
   CRASH_REPORT_URL: 'https://webtorrent.io/desktop/crash-report',
