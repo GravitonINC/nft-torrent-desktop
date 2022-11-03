@@ -1,5 +1,11 @@
 # WebTorrent Desktop Version History
 
+## v0.101.1 - 2022-11-02
+
+### Added
+
+- Ability to link wallet from home screen
+
 ## v0.101.0 - 2022-08-23
 
 ### Added
