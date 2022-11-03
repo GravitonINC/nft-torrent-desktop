@@ -11,7 +11,7 @@ class HeaderSession extends React.Component {
     return (
       <i
         title='Wallet Linked'
-        onClick={dispatch('preferences')}
+        onClick={dispatcher('preferences')}
         role='button'
         style={buttonStyle}
       >
