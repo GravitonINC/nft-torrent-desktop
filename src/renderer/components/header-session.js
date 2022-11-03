@@ -10,8 +10,8 @@ class HeaderSession extends React.Component {
   loggedIn(account) {
     return (
       <i
-        title='Unlink Wallet'
-        onClick={dispatcher('saveJwt')}
+        title='Wallet Linked'
+        onClick={dispatch('preferences')}
         role='button'
         style={buttonStyle}
       >
