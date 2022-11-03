@@ -84,7 +84,7 @@ module.exports = {
   GITHUB_URL_RELEASES: 'https://github.com/GravitonINC/nft-torrent-desktop/releases',
 
   HOME_PAGE_URL: 'https://app.graviton.xyz',
-  TWITTER_PAGE_URL: 'https://twitter.com/GravitonXYZ',
+  TWITTER_PAGE_URL: 'https://twitter.com/Graviton_XYZ',
 
   IS_PORTABLE,
   IS_PRODUCTION,
