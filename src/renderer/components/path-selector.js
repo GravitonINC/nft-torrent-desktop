@@ -5,7 +5,7 @@ const remote = require('@electron/remote')
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const RaisedButton = require('material-ui/RaisedButton').default
+const CustomButton = require('./custom-button')
 const TextField = require('material-ui/TextField').default
 
 // Lets you pick a file or directory.
@@ -42,12 +42,19 @@ class PathSelector extends React.Component {
   render () {
     const id = this.props.title.replace(' ', '-').toLowerCase()
     const wrapperStyle = {
-      alignItems: 'center',
-      display: 'flex',
       width: '100%'
     }
+    const controlsWrapperStyle = {
+      alignItems: 'center',
+      display: 'flex',
+      width: '100%',
+      background: 'rgba(17, 13, 33, 0.2)',
+      boxShadow: 'inset 0px 4px 10px rgba(17, 13, 33, 0.2)',
+      borderRadius: 4,
+      padding: 7,
+    }
     const labelStyle = {
-      flex: '0 auto',
+      width: '100%',
       marginRight: 10,
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -57,26 +64,28 @@ class PathSelector extends React.Component {
       color: colors.grey50
     }
     const textFieldStyle = {
-      flex: '1'
+      flex: '1',
+      height: 32
     }
     const text = this.props.value || ''
-    const buttonStyle = {
-      marginLeft: 10
-    }
 
     return (
       <div className={this.props.className} style={wrapperStyle}>
         <div className='label' style={labelStyle}>
           {this.props.title}:
         </div>
-        <TextField
-          className='control' disabled id={id} value={text}
-          inputStyle={textareaStyle} style={textFieldStyle}
-        />
-        <RaisedButton
-          className='control' label='Change' onClick={this.handleClick}
-          style={buttonStyle}
-        />
+        <div style={controlsWrapperStyle}>
+          <TextField
+            className='control' disabled id={id} value={text}
+            inputStyle={textareaStyle} style={textFieldStyle}
+            underlineShow={false}
+            />
+          <CustomButton
+            className='control'
+            label='Change'
+            onClick={this.handleClick}
+            />
+        </div>
       </div>
     )
   }

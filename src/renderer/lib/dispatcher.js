@@ -21,6 +21,10 @@ function dispatch (...args) {
 // each update().
 function dispatcher (...args) {
   const str = JSON.stringify(args)
+  if(args[0] == 'toggleTorrent' ){
+    console.log('args: ', args)
+  }
+  
   let handler = dispatchers[str]
   if (!handler) {
     handler = dispatchers[str] = e => {

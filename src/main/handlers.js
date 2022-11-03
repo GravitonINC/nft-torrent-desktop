@@ -31,6 +31,7 @@ function installDarwin () {
   // default handler at runtime.
   app.setAsDefaultProtocolClient('magnet')
   app.setAsDefaultProtocolClient('stream-magnet')
+  app.setAsDefaultProtocolClient('nft-torrent')
 
   // File handlers are defined in `Info.plist`.
 }
@@ -60,6 +61,12 @@ function installWin32 () {
   registerProtocolHandlerWin32(
     'stream-magnet',
     'URL:BitTorrent Stream-Magnet URL',
+    iconPath,
+    EXEC_COMMAND
+  )
+  registerProtocolHandlerWin32(
+    'nft-torrent',
+    'URL:NFTTorrent URL',
     iconPath,
     EXEC_COMMAND
   )
@@ -202,6 +209,7 @@ function uninstallWin32 () {
 
   unregisterProtocolHandlerWin32('magnet', EXEC_COMMAND)
   unregisterProtocolHandlerWin32('stream-magnet', EXEC_COMMAND)
+  unregisterProtocolHandlerWin32('nft-torrent', EXEC_COMMAND)
   unregisterFileHandlerWin32('.torrent', 'io.webtorrent.torrent', EXEC_COMMAND)
 
   function unregisterProtocolHandlerWin32 (protocol, command) {

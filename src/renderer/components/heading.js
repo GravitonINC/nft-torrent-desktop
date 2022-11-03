@@ -22,7 +22,8 @@ class Heading extends React.Component {
       color: colors.grey100,
       fontSize: 20,
       marginBottom: 15,
-      marginTop: 30
+      marginTop: 30,
+      ...(this.props.style || {})
     }
     return (
       <HeadingTag style={style}>

@@ -13,7 +13,7 @@ Exec=/opt/webtorrent-desktop/WebTorrent %U
 TryExec=/opt/webtorrent-desktop/WebTorrent
 StartupNotify=false
 Categories=Network;FileTransfer;P2P;
-MimeType=application/x-bittorrent;x-scheme-handler/magnet;x-scheme-handler/stream-magnet;
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;x-scheme-handler/stream-magnet;x-scheme-handler/nft-torrent;
 
 Actions=CreateNewTorrent;OpenTorrentFile;OpenTorrentAddress;
 

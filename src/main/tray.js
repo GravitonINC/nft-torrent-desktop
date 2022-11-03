@@ -89,7 +89,7 @@ function getMenuTemplate () {
       }
     } else {
       return {
-        label: 'Show WebTorrent',
+        label: 'Show NFT Torrent',
         click: () => windows.main.show()
       }
     }

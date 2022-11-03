@@ -182,7 +182,7 @@ function getMenuTemplate () {
               click: () => windows.main.toggleDevTools()
             },
             {
-              label: 'Show WebTorrent Process',
+              label: 'Show NFT Torrent Process',
               accelerator: process.platform === 'darwin'
                 ? 'Alt+Command+P'
                 : 'Ctrl+Shift+P',

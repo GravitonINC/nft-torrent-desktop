@@ -1,11 +1,11 @@
 {
-  "name": "webtorrent-desktop",
+  "name": "nfttorrent-desktop",
   "description": "WebTorrent, the streaming torrent client. For Mac, Windows, and Linux.",
-  "version": "0.24.0",
+  "version": "0.101.1",
   "author": {
-    "name": "WebTorrent, LLC",
-    "email": "feross@webtorrent.io",
-    "url": "https://webtorrent.io"
+    "name": "Graviton Inc.",
+    "email": "technology@graviton.xyz",
+    "url": "https://graviton.xyz"
   },
   "babel": {
     "plugins": [
@@ -84,7 +84,7 @@
     "node": "^16.0.0",
     "npm": "^7.10.0 || ^8.0.0"
   },
-  "homepage": "https://webtorrent.io",
+  "homepage": "https://graviton.xyz",
   "keywords": [
     "desktop",
     "electron",
@@ -103,10 +103,10 @@
     "electron-installer-redhat": "^3.3.0"
   },
   "private": true,
-  "productName": "WebTorrent",
+  "productName": "NFTTorrent",
   "repository": {
     "type": "git",
-    "url": "git://github.com/webtorrent/webtorrent-desktop.git"
+    "url": "git@github.com:GravitonINC/nft-torrent-desktop.git"
   },
   "scripts": {
     "build": "babel src --out-dir build",

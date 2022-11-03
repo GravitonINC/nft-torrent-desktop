@@ -112,6 +112,10 @@ function onState (err, _state) {
     folderWatcher: createGetter(() => {
       const FolderWatcherController = require('./controllers/folder-watcher-controller')
       return new FolderWatcherController()
+    }),
+    jwtController: createGetter(() => {
+      const JwtController = require('./controllers/jwt-controller')
+      return new JwtController(state)
     })
   }
 
@@ -169,7 +173,7 @@ function onState (err, _state) {
   window.addEventListener('focus', onFocus)
   window.addEventListener('blur', onBlur)
 
-  if (electron.remote.getCurrentWindow().isVisible()) {
+  if (electron.remote && electron.remote.getCurrentWindow().isVisible()) {
     sound.play('STARTUP')
   }
 
@@ -177,6 +181,7 @@ function onState (err, _state) {
   window.setTimeout(delayedInit, config.DELAYED_INIT)
 
   // Done! Ideally we want to get here < 500ms after the user clicks the app
+  controllers.jwtController().loadJwt();
   console.timeEnd('init')
 }
 
@@ -214,8 +219,10 @@ function lazyLoadCast () {
 // 4. controller - the controller handles the event, changing the state object
 function update () {
   controllers.playback().showOrHidePlayerControls()
-  app.setState(state)
-  updateElectron()
+  if(app) {
+    app.setState(state)
+    updateElectron()
+  }
 }
 
 // Some state changes can't be reflected in the DOM, instead we have to
@@ -335,8 +342,19 @@ const dispatchHandlers = {
   setTitle: (title) => { state.window.title = title },
   resetTitle: () => { state.window.title = config.APP_WINDOW_TITLE },
 
+  // JWT
+
+  loadJwt: () => controllers.jwtController().loadJwt(),
+  saveJwt: (jwt) => controllers.jwtController().saveJwt(jwt),
+  savePeerId: (peerId) => controllers.jwtController().savePeerId(peerId),
+  validateJwt: (jwt) => controllers.jwtController().validateJwt(jwt),
+  exchangeOtp: (otp) => controllers.jwtController().exchangeOtp(otp),
+  enterOtp: (otp) => controllers.jwtController().enterOtp(),
+  unlinkWalletModal: (otp) => controllers.jwtController().unlinkWalletModal(),
+
   // Everything else
   onOpen,
+  onDeepLink,
   error: onError,
   uncaughtError: (proc, err) => telemetry.logUncaughtError(proc, err),
   stateSave: () => State.save(state),
@@ -373,6 +391,7 @@ function setupIpc () {
   ipcRenderer.on('windowBoundsChanged', onWindowBoundsChanged)
 
   const tc = controllers.torrent()
+  const jwt = controllers.jwtController()
   ipcRenderer.on('wt-parsed', (e, ...args) => tc.torrentParsed(...args))
   ipcRenderer.on('wt-metadata', (e, ...args) => tc.torrentMetadata(...args))
   ipcRenderer.on('wt-done', (e, ...args) => tc.torrentDone(...args))
@@ -386,6 +405,7 @@ function setupIpc () {
   ipcRenderer.on('wt-poster', (e, ...args) => tc.torrentPosterSaved(...args))
   ipcRenderer.on('wt-audio-metadata', (e, ...args) => tc.torrentAudioMetadata(...args))
   ipcRenderer.on('wt-server-running', (e, ...args) => tc.torrentServerRunning(...args))
+  ipcRenderer.on('wt-update-peer-id', (e, ...args) => jwt.savePeerId(...args))
 
   ipcRenderer.on('wt-uncaught-error', (e, err) => telemetry.logUncaughtError('webtorrent', err))
 
@@ -501,6 +521,16 @@ function onOpen (files) {
     return onError('Please go back to the torrent list before creating a new torrent.')
   }
 
+  update()
+}
+
+// Called when the user opens a deeplink (nft-torrent://preferences) to the app
+function onDeepLink (deeplink) {
+  if (deeplink === 'preferences') {
+    dispatch('preferences')
+  } else {
+    console.log(`Deeplink ${deeplink} not supported`)
+  }
   update()
 }
 

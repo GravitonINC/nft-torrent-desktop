@@ -120,6 +120,11 @@ function setupStateSaved () {
   const parseTorrent = require('parse-torrent')
 
   const saved = {
+    auth: {
+      address: '',
+      accessToken: ''
+    },
+    peerId: '',
     prefs: {
       downloadPath: config.DEFAULT_DOWNLOAD_PATH,
       isFileHandler: false,

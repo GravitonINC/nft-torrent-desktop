@@ -1,5 +1,32 @@
 # WebTorrent Desktop Version History
 
+## v0.101.1 - 2022-11-02
+
+### Added
+
+- Ability to link wallet from home screen
+
+## v0.101.0 - 2022-08-23
+
+### Added
+
+- Support to deep link to preferences, `nft-torrent://preferences`.
+
+## v0.100.1 - 2022-08-16
+
+### Added
+
+- Support to link your wallet
+
+### Changed
+
+- App theme, uses Graviton theme now.
+
+### Fixed
+
+- Pack Windows, OSX and Linux
+- Sign and notarize OSX build
+
 ## v0.24.0 - 2020-08-28
 
 ### Added
