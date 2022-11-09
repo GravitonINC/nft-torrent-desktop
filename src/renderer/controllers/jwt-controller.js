@@ -39,22 +39,22 @@ module.exports = class JwtController {
     }
   }
 
-  // Shows a modal saying that we have an update
   validateJwt(jwt) {
     if (!jwt) {
       console.log('No JWT found');
       return;
     }
     JwtApi.validateJwt(jwt)
-      .then(({success, res, address }) => {
+      .then(({success, res, address, isEligibleForRewards }) => {
         if (success) {
           return dispatch('saveJwt', {
             address: address,
-            accessToken: jwt
+            accessToken: jwt,
+            isEligibleForRewards
           });
         }
         if (res.statusCode === 401) dispatch('saveJwt');
-        dispatch('error', new Error(`Error restoring session, status code: ${res.statusCode} ${res.message}`));
+        else dispatch('error', new Error(`Error restoring session, status code: ${res.statusCode} ${res.message}`));
       })
       .catch(err => {
         dispatch('error', err);
