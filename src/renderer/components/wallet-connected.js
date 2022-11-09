@@ -7,6 +7,8 @@ class WalletConnected extends React.Component {
   render() {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
+    const isEligibleForRewards = state && state.auth && state.auth.isEligibleForRewards;
+    const notEligibleUI = isEligibleForRewards === false ? (<p>Currently you are not eligible for rewards.</p>) : null;
     const displayAccount = `${account.slice(0, 7)}...${account.slice(account.length - 4)}`;
     return (
       <>
@@ -14,6 +16,7 @@ class WalletConnected extends React.Component {
           <p style={{ color: '#FFFFFF' }}>Wallet</p>
           <a className='cta' href='#' onClick={dispatcher('unlinkWalletModal')}>Unlink</a>
         </div>
+        {notEligibleUI}
         <div className='dark-box'>
           <div className='space-between'>
             <span style={{ color: '#FFFFFF' }}>

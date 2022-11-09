@@ -20,7 +20,8 @@ module.exports = class JwtController {
 
   saveJwt(jwt = {
     address: '',
-    accessToken: ''
+    accessToken: '',
+    isEligibleForRewards: false
   }) {
     this.state.saved.auth = jwt;
     dispatch('stateSaveImmediate');

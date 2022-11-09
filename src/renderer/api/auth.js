@@ -29,24 +29,6 @@ module.exports = class JwtApi {
     });
     return promise;
   }
-  static rewardsEligibility(jwt) {
-    const {promise, reject, resolve} = promiseFactory();
-    get.concat({
-      url: `${GRAVITON_TORRENT_API_URL}/auth/me`,
-      json: true,
-      headers: { Authorization: `Bearer ${jwt}` }
-    }, (err, res, data) => {
-      if (err) return reject(err);
-      if (res.statusCode >= 400) return resolve({ success: false, res, });
-
-      resolve({
-        success: true,
-        address: data.address,
-        accessToken: jwt
-      });
-    });
-    return promise;
-  }
 
   static unlink(jwt) {
     const {promise, reject, resolve} = promiseFactory();
