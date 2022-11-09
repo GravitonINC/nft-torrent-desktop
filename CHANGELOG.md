@@ -1,5 +1,11 @@
 # WebTorrent Desktop Version History
 
+## v0.101.2 - 2022-11-09
+
+### Added
+
+- Rewards eligibility indicator
+
 ## v0.101.1 - 2022-11-02
 
 ### Added
