@@ -30,6 +30,8 @@ function openSeedFile () {
  * so this function shows a directory dialog on those platforms.
  */
 function openSeedDirectory () {
+  // Disable creating torrent
+  return;
   if (!windows.main.win) return
   log('openSeedDirectory')
   const opts = process.platform === 'darwin'

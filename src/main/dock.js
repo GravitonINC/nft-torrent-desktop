@@ -40,11 +40,11 @@ function setBadge (count) {
 
 function getMenuTemplate () {
   return [
-    {
-      label: 'Create New Torrent...',
-      accelerator: 'CmdOrCtrl+N',
-      click: () => dialog.openSeedDirectory()
-    },
+    // {
+    //   label: 'Create New Torrent...',
+    //   accelerator: 'CmdOrCtrl+N',
+    //   click: () => dialog.openSeedDirectory()
+    // },
     {
       label: 'Open Torrent File...',
       accelerator: 'CmdOrCtrl+O',
