@@ -38,7 +38,7 @@ class HeaderSession extends React.Component {
   render() {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
-    const isEligibleForRewards = state && state.auth && state.auth.isEligibleForRewards;
+    const isEligibleForRewards = state && state.auth && state.auth.rewardsEligibility && state.auth.rewardsEligibility.isEligible;
     return account ? this.loggedIn(account, isEligibleForRewards) : this.loggedOut();
   }
 

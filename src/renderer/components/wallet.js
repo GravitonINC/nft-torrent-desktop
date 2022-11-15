@@ -5,6 +5,9 @@ const CustomButton = require('./custom-button')
 const WalletConnected = require('./wallet-connected')
 const Snackbar = require('material-ui/Snackbar').default
 
+const PreferencesSection = require('./preferences-section')
+const Preference = require('./preference')
+
 class Wallet extends React.Component {
   state = {
     snackOpen: false
@@ -30,10 +33,12 @@ class Wallet extends React.Component {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
     return (
-      <>
-        {account ? <WalletConnected state={this.props.state} /> : this.loggedOut()}
-        {this.snackBar()}
-      </>
+      <PreferencesSection title='Wallet'>
+        <Preference>
+          {account ? <WalletConnected state={this.props.state} /> : this.loggedOut()}
+          {this.snackBar()}
+        </Preference>
+      </PreferencesSection>
     );
   }
 

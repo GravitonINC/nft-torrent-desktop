@@ -123,7 +123,7 @@ function setupStateSaved () {
     auth: {
       address: '',
       accessToken: '',
-      isEligibleForRewards: false
+      rewardsEligibility: {}
     },
     peerId: '',
     prefs: {

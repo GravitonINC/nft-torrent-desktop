@@ -7,7 +7,7 @@ class WalletConnected extends React.Component {
   render() {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
-    const isEligibleForRewards = state && state.auth && state.auth.isEligibleForRewards;
+    const isEligibleForRewards = state && state.auth && state.auth.rewardsEligibility && state.auth.rewardsEligibility.isEligible;
     const notEligibleUI = isEligibleForRewards === false ? (<p>Currently you are not eligible for rewards.</p>) : null;
     const displayAccount = `${account.slice(0, 7)}...${account.slice(account.length - 4)}`;
     return (

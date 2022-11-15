@@ -40,12 +40,12 @@ module.exports = class LinkWalletModal extends React.Component {
       deviceDescription: getDeviceDescription(),
       peerId
     })
-      .then(({ success, accessToken, address, isEligibleForRewards, res }) => {
+      .then(({ success, accessToken, address, rewardsEligibility, res }) => {
         if (success) {
           dispatch('saveJwt', {
             address,
             accessToken,
-            isEligibleForRewards
+            rewardsEligibility
           });
           dispatch('exitModal');
           return;

@@ -21,7 +21,7 @@ module.exports = class JwtController {
   saveJwt(jwt = {
     address: '',
     accessToken: '',
-    isEligibleForRewards: false
+    rewardsEligibility: {}
   }) {
     this.state.saved.auth = jwt;
     dispatch('stateSaveImmediate');
@@ -46,12 +46,12 @@ module.exports = class JwtController {
       return;
     }
     JwtApi.validateJwt(jwt)
-      .then(({success, res, address, isEligibleForRewards }) => {
+      .then(({success, res, address, rewardsEligibility }) => {
         if (success) {
           return dispatch('saveJwt', {
             address: address,
             accessToken: jwt,
-            isEligibleForRewards
+            rewardsEligibility
           });
         }
         if (res.statusCode === 401) dispatch('saveJwt');
