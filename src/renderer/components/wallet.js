@@ -1,8 +1,10 @@
 const React = require('react')
-
+const { shell } = require('electron')
 const { dispatcher, dispatch } = require('../lib/dispatcher')
 const CustomButton = require('./custom-button')
+const GradientButton = require('./gradient-button')
 const Snackbar = require('material-ui/Snackbar').default
+const config = require('../../config')
 
 const PreferencesSection = require('./preferences-section')
 const Preference = require('./preference')
@@ -36,7 +38,7 @@ class Wallet extends React.Component {
   }
 
   getBgColor(status) {
-    if (status === 'eligible') return 'rgba(77, 255, 179, 0.1)';
+    if (status === 'eligible') return 'rgba(102, 149, 255, 0.1)';
     if (status === 'ineligible') return 'rgba(102, 149, 255, 0.1)';
     if (status === 'disconnected') return 'rgba(255, 127, 127, 0.1)';
     return '';
@@ -47,6 +49,10 @@ class Wallet extends React.Component {
     if (status === 'ineligible') return '#6695FF';
     if (status === 'disconnected') return '#FF4949';
     return '';
+  }
+
+  openStakeNow = () => {
+    shell.openExternal(config.UNIVERSE_STAKE_NOW_URL);
   }
 
   getTitle(status) {
@@ -61,10 +67,36 @@ class Wallet extends React.Component {
     </div>);
   }
 
+  getMinStaked(status, minXYZStakeToRewards) {
+    if (status !== 'ineligible') return null;
+    const textColor = this.getTextColor(status);
+    return (
+      <div style={{ marginBottom: 15, color: textColor }} className='info-box'>
+        <div>
+          <i
+            className='icon float-left'
+            style={{ marginRight: 12 }}
+          >
+            info_outline
+          </i>
+          You must have {minXYZStakeToRewards} XYZ staked in the Universe DAO to be eligible for seeding rewards.
+        </div>
+        <div style={{ maxWidth: 200, marginTop: 15 }}>
+          <GradientButton
+            label="Stake now"
+            fullWidth
+            onClick={this.openStakeNow}
+          />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const state = this.props.state.saved;
     const account = state?.auth?.address;
     const isEligibleForRewards = state?.auth?.rewardsEligibility?.isEligible ?? false;
+    const minXYZStakeToRewards = state?.auth?.rewardsEligibility?.minXYZStakeToRewards ?? '';
     const displayAccount = account ? `${account.slice(0, 7)}...${account.slice(account.length - 4)}` : '';
     const status = (() => {
       if (!account) return 'disconnected';
@@ -76,6 +108,7 @@ class Wallet extends React.Component {
         <Preference>
           <p style={{ color: '#FFFFFF' }}>{this.getCaption(status)}</p>
           <p>Wallet address</p>
+          {this.getMinStaked(status, minXYZStakeToRewards)}
           <div className='dark-box'>
             <div className='space-between'>
               <span style={{ color: '#FFFFFF' }}>

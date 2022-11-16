@@ -31,6 +31,7 @@ const gravitonApp = IS_PRODUCTION ? 'https://app.graviton.xyz/torrent' : 'https:
 module.exports = {
   GRAVITON_TORRENT_API_URL: envSettings.apiBase,
   GRAVITON_MAIN_WEB_APP_URL: gravitonApp,
+  UNIVERSE_STAKE_NOW_URL: 'https://dao.universe.xyz/yield-farming',
   ANNOUNCEMENT_URL: 'https://webtorrent.io/desktop/announcement',
   AUTO_UPDATE_URL: `${envSettings.apiBase}/update`,
   CRASH_REPORT_URL: 'https://webtorrent.io/desktop/crash-report',
