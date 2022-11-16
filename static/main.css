@@ -1231,3 +1231,10 @@ a.cta {
   color: rgba(255, 255, 255, 0.6);
   text-shadow: 1px 1px 94px rgba(0, 0, 0, 0.05);
 }
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}

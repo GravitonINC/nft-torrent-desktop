@@ -7,14 +7,14 @@ const Heading = require('./heading')
 class PreferencesSection extends React.Component {
   static get propTypes () {
     return {
-      title: PropTypes.string
+      title: PropTypes.any
     }
   }
 
   render () {
     const style = {
-      // marginBottom: 25,
-      marginTop: 10
+      marginTop: 10,
+      ...(this.props.containerStyle || {})
     }
     const headingStyle = {
       padding: 12,

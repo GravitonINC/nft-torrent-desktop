@@ -2,7 +2,6 @@ const React = require('react')
 
 const { dispatcher, dispatch } = require('../lib/dispatcher')
 const CustomButton = require('./custom-button')
-const WalletConnected = require('./wallet-connected')
 const Snackbar = require('material-ui/Snackbar').default
 
 const PreferencesSection = require('./preferences-section')
@@ -29,13 +28,66 @@ class Wallet extends React.Component {
     }
   }
 
+  getCaption(status) {
+    if (status === 'eligible') return 'Your wallet is linked, and you are eligible to earn rewards.';
+    if (status === 'ineligible') return 'Your wallet is linked, but you are not eligible to earn rewards yet.';
+    if (status === 'disconnected') return 'Linking your wallet allows you to earn rewards.';
+    return '';
+  }
+
+  getBgColor(status) {
+    if (status === 'eligible') return 'rgba(77, 255, 179, 0.1)';
+    if (status === 'ineligible') return 'rgba(102, 149, 255, 0.1)';
+    if (status === 'disconnected') return 'rgba(255, 127, 127, 0.1)';
+    return '';
+  }
+
+  getTextColor(status) {
+    if (status === 'eligible') return '#01F48C';
+    if (status === 'ineligible') return '#6695FF';
+    if (status === 'disconnected') return '#FF4949';
+    return '';
+  }
+
+  getTitle(status) {
+    const textColor = this.getTextColor(status);
+    const linked = status === 'disconnected' ? 'Unlinked' : 'Linked';
+    return (<div className='space-between'>
+      <span>Wallet</span>
+      <div>
+        <span className='dot' style={{ backgroundColor: textColor, marginRight: 6 }}></span>
+        <span style={{ color: textColor, fontSize: 14 }}>{linked}</span>
+      </div>
+    </div>);
+  }
+
   render() {
     const state = this.props.state.saved;
-    const account = state && state.auth && state.auth.address;
+    const account = state?.auth?.address;
+    const isEligibleForRewards = state?.auth?.rewardsEligibility?.isEligible ?? false;
+    const displayAccount = account ? `${account.slice(0, 7)}...${account.slice(account.length - 4)}` : '';
+    const status = (() => {
+      if (!account) return 'disconnected';
+      if (isEligibleForRewards) return 'eligible';
+      return 'ineligible';
+    })();
     return (
-      <PreferencesSection title='Wallet'>
+      <PreferencesSection title={this.getTitle(status)} containerStyle={{ background: this.getBgColor(status) }}>
         <Preference>
-          {account ? <WalletConnected state={this.props.state} /> : this.loggedOut()}
+          <p style={{ color: '#FFFFFF' }}>{this.getCaption(status)}</p>
+          <p>Wallet address</p>
+          <div className='dark-box'>
+            <div className='space-between'>
+              <span style={{ color: '#FFFFFF' }}>
+                {displayAccount}
+              </span>
+              <CustomButton
+                className='control'
+                label={account ? 'Unlink' : 'Link'}
+                onClick={dispatcher(account ? 'unlinkWalletModal' : 'enterOtp')}
+              />
+            </div>
+          </div>
           {this.snackBar()}
         </Preference>
       </PreferencesSection>
