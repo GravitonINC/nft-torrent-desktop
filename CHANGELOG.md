@@ -1,10 +1,18 @@
 # WebTorrent Desktop Version History
 
-## v0.101.2 - 2022-11-09
+## v0.101.2-dev - 2022-11-16
 
 ### Added
 
 - Rewards eligibility indicator
+- "Enter your device name" when linking the app
+- Wallet linking statuses UI in preferences (Linked-Eligible, Linked-Ineligible, Unlinked)
+
+### Changed
+
+- Refresh authenticated user data periodically
+- Remove the ability to create torrents
+
 
 ## v0.101.1 - 2022-11-02
 
