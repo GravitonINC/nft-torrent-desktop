@@ -37,7 +37,7 @@ module.exports = class LinkWalletModal extends React.Component {
     this.setState({ loading: true, error: '' });
     JwtApi.exchangeOtp({
       code,
-      deviceDescription: getDeviceDescription(),
+      deviceDescription: this.device.input.value || getDeviceDescription(),
       peerId
     })
       .then(({ success, accessToken, address, rewardsEligibility, res }) => {
@@ -93,11 +93,24 @@ module.exports = class LinkWalletModal extends React.Component {
       <div className='enter-otp-modal'>
         {this.getHeader()}
         <div style={contentStyle}>
-          <Chip
+        <Chip
             backgroundColor="#443F55"
             labelColor="#AAAAAA"
           >
             Step 1
+          </Chip>
+          <div>Enter your device name.</div>
+          <TextField
+            id='enter-device-field'
+            className='control'
+            refX={(c) => { this.device = c }}
+            fullWidth
+          />
+          <Chip
+            backgroundColor="#443F55"
+            labelColor="#AAAAAA"
+          >
+            Step 2
           </Chip>
           <div>Generate your One Time Passcode in the Graviton NFT Torrent Web3 application.</div>
           <GradientBorderButton
@@ -109,7 +122,7 @@ module.exports = class LinkWalletModal extends React.Component {
             backgroundColor="#443F55"
             labelColor="#AAAAAA"
           >
-            Step 2
+            Step 3
           </Chip>
           <div>Enter your One Time Passcode below.</div>
           <TextField
@@ -134,10 +147,10 @@ module.exports = class LinkWalletModal extends React.Component {
   }
 
   componentDidMount() {
-    this.otp.input.focus()
+    this.device?.input.focus()
     const clipboardContent = clipboard.readText()
 
-    if (clipboardContent && clipboardContent.length === 6) {
+    if (clipboardContent && clipboardContent.length === 7) {
       this.otp.input.value = clipboardContent
       this.otp.input.select()
     }
