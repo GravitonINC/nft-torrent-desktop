@@ -254,7 +254,7 @@ function buildDarwin (cb) {
     fs.writeFileSync(infoPlistPath, plist.build(infoPlist))
 
     // Copy torrent file icon into app bundle
-    cp.execSync(`cp ${config.APP_FILE_ICON + '.icns'} ${resourcesPath}`)
+    cp.execSync(`cp "${config.APP_FILE_ICON + '.icns"'} "${resourcesPath}"`)
 
     if (process.platform === 'darwin') {
       if (argv.sign) {
