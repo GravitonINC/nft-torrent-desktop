@@ -1,5 +1,12 @@
 # WebTorrent Desktop Version History
 
+## v0.101.3-dev - 2022-11-17
+
+### Changed
+
+- Rename app from "NFTTorrent" to "NFT Torrent"
+- Update copy at the bottom of the main view
+
 ## v0.101.2-dev - 2022-11-16
 
 ### Added
