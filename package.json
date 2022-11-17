@@ -103,7 +103,7 @@
     "electron-installer-redhat": "^3.3.0"
   },
   "private": true,
-  "productName": "NFTTorrent",
+  "productName": "NFT Torrent",
   "repository": {
     "type": "git",
     "url": "git@github.com:GravitonINC/nft-torrent-desktop.git"
