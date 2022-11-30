@@ -9,7 +9,7 @@
   <br>
 </h1>
 
-<h4 align="center">The NFT streaming torrent app. For Mac, Windows, and Linux.</h4>
+<h1 align="center">The NFT streaming torrent app. For Mac, Windows, and Linux.</h1>
 
 ## Install
 
