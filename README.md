@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="https://graviton.xyz/products/torrent">
-    <img src="Icons/Graviton App Icons/IOS - 1024x1024/NFT Torrent - IOS 1024x1024.png" alt="NFT Torrent" width="200">
+    <img src="nfttorrent.png" alt="NFT Torrent" width="200">
   </a>
   <br>
   NFT Torrent Desktop
