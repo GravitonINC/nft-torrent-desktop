@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="https://graviton.xyz/products/torrent">
-    <img src="nfttorrent.png" alt="NFT Torrent" width="200">
+    <img src="https://github.com/GravitonINC/brandkit-graviton/blob/main/nfttorrent.png" alt="NFT Torrent" width="200">
   </a>
   <br>
   NFT Torrent Desktop
