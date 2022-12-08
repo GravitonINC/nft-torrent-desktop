@@ -1,5 +1,12 @@
 # WebTorrent Desktop Version History
 
+## v1.0.0 - 2022-12-08
+
+### Changed
+
+- Update NFT Torrent Backend URL to production
+- First production release!
+
 ## v0.101.3-dev - 2022-11-17
 
 ### Changed
