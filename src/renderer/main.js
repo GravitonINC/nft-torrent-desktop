@@ -141,6 +141,7 @@ function onState (err, _state) {
   // Do this at least once a second to give every file in every torrentSummary
   // a progress bar and to keep the cursor in sync when playing a video
   setInterval(update, 1000)
+  setInterval(() => controllers.jwtController().loadJwt(), 300000)
 
   // Listen for messages from the main process
   setupIpc()

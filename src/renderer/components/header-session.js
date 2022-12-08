@@ -7,15 +7,17 @@ const buttonStyle = {
 }
 
 class HeaderSession extends React.Component {
-  loggedIn(account) {
+  loggedIn(account, isEligibleForRewards) {
+    const image = isEligibleForRewards ? 'Connected.svg' : 'ConnectedWarning.svg';
+    const title = isEligibleForRewards ? 'Wallet Linked' : 'Wallet Linked but not eligible for rewards';
     return (
       <i
-        title='Wallet Linked'
+        title={title}
         onClick={dispatcher('preferences')}
         role='button'
         style={buttonStyle}
       >
-        <img src='Connected.svg' alt='disconnect' />
+        <img src={image} alt='disconnect' />
       </i>
     )
   }
@@ -36,7 +38,8 @@ class HeaderSession extends React.Component {
   render() {
     const state = this.props.state.saved;
     const account = state && state.auth && state.auth.address;
-    return account ? this.loggedIn(account) : this.loggedOut();
+    const isEligibleForRewards = state && state.auth && state.auth.rewardsEligibility && state.auth.rewardsEligibility.isEligible;
+    return account ? this.loggedIn(account, isEligibleForRewards) : this.loggedOut();
   }
 
 }

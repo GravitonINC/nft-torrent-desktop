@@ -100,7 +100,7 @@
   been downloaded, even though the files are byte for byte identical. This ensures that the
   codesigning worked and is valid.
 
-- Smoke test NFTTorrent Desktop on each platform. Before a release, check that the following basic use cases work correctly:
+- Smoke test NFT Torrent Desktop on each platform. Before a release, check that the following basic use cases work correctly:
 
   1. Click "Play" to stream a built-in torrent (e.g. Sintel)
     - Ensure that seeking to undownloaded region works and plays immediately.

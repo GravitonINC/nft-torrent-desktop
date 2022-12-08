@@ -1170,6 +1170,8 @@ video::-webkit-media-text-track-container {
   background: linear-gradient(121.93deg, #FF7F69 4.09%, #FF2D83 28.55%, #6695FF 85.73%);
   box-shadow: 0px 12px 60px rgba(0, 0, 0, 0.5), inset 0px 6px 6px rgba(255, 255, 255, 0.44);
   border-radius: 6px;
+  display: flex;
+  justify-content: stretch;
 }
 .gradient-border {
   position: relative;
@@ -1230,4 +1232,18 @@ video::-webkit-media-text-track-container {
 a.cta {
   color: rgba(255, 255, 255, 0.6);
   text-shadow: 1px 1px 94px rgba(0, 0, 0, 0.05);
+}
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+.info-box {
+  display: flex;
+  padding: 16px;
+  background: rgba(102, 149, 255, 0.1);
+  border-radius: 8px;
+  flex-direction: column;
 }

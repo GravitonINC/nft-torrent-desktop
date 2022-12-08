@@ -80,16 +80,16 @@ function getMenuTemplate () {
     {
       label: 'File',
       submenu: [
-        {
-          label: process.platform === 'darwin'
-            ? 'Create New Torrent...'
-            : 'Create New Torrent from Folder...',
-          accelerator: 'CmdOrCtrl+N',
-          click: () => {
-            const dialog = require('./dialog')
-            dialog.openSeedDirectory()
-          }
-        },
+        // {
+        //   label: process.platform === 'darwin'
+        //     ? 'Create New Torrent...'
+        //     : 'Create New Torrent from Folder...',
+        //   accelerator: 'CmdOrCtrl+N',
+        //   click: () => {
+        //     const dialog = require('./dialog')
+        //     dialog.openSeedDirectory()
+        //   }
+        // },
         {
           label: 'Open Torrent File...',
           accelerator: 'CmdOrCtrl+O',

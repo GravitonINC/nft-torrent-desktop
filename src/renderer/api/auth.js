@@ -23,6 +23,7 @@ module.exports = class JwtApi {
       resolve({
         success: true,
         address: data.address,
+        rewardsEligibility: data.rewardsEligibility,
         accessToken: jwt
       });
     });
@@ -82,6 +83,7 @@ module.exports = class JwtApi {
         success: true,
         accessToken: data.access_token,
         address: data.address,
+        rewardsEligibility: data.rewardsEligibility,
       });
     });
     return promise;

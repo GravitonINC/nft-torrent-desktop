@@ -7,6 +7,8 @@ const Heading = require('../components/heading')
 const Wallet = require('../components/wallet')
 const PathSelector = require('../components/path-selector')
 const CustomButton = require('../components/custom-button')
+const PreferencesSection = require('../components/preferences-section')
+const Preference = require('../components/preference')
 
 const { dispatch } = require('../lib/dispatcher')
 const config = require('../../config')
@@ -202,11 +204,7 @@ class PreferencesPage extends React.Component {
   }
   setWallet() {
     const account = this.props.state?.saved?.auth?.address;
-    return (
-      <Preference>
-        <Wallet state={this.props.state} account={account}/>
-      </Preference>
-    );
+    return <Wallet state={this.props.state} account={account}/>;
   }
 
   setStartupCheckbox () {
@@ -259,9 +257,7 @@ class PreferencesPage extends React.Component {
     }
     return (
       <div style={style}>
-        <PreferencesSection title='Wallet'>
-          {this.setWallet()}
-        </PreferencesSection>
+        {this.setWallet()}
         <PreferencesSection title='Folders'>
           {this.downloadPathSelector()}
           {this.autoAddTorrentsCheckbox()}
@@ -281,40 +277,6 @@ class PreferencesPage extends React.Component {
         </PreferencesSection>
       </div>
     )
-  }
-}
-
-class PreferencesSection extends React.Component {
-  static get propTypes () {
-    return {
-      title: PropTypes.string
-    }
-  }
-
-  render () {
-    const style = {
-      // marginBottom: 25,
-      marginTop: 10
-    }
-    const headingStyle = {
-      padding: 12,
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-      margin: 0,
-      fontSize: 16,
-    }
-    return (
-      <div style={style} className='box'>
-        <Heading level={2} style={headingStyle}>{this.props.title}</Heading>
-        {this.props.children}
-      </div>
-    )
-  }
-}
-
-class Preference extends React.Component {
-  render () {
-    const style = { margin: 12 }
-    return (<div style={style}>{this.props.children}</div>)
   }
 }
 

@@ -44,6 +44,9 @@ module.exports = class TorrentListController {
 
   // Shows the Create Torrent page with options to seed a given file or folder
   showCreateTorrent (files) {
+    if (true) {
+      return dispatch('error', 'Creating torrents is disabled.')
+    }
     // You can only create torrents from the home screen.
     if (this.state.location.url() !== 'home') {
       return dispatch('error', 'Please go back to the torrent list before creating a new torrent.')

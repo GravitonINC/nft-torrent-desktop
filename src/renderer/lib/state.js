@@ -122,7 +122,8 @@ function setupStateSaved () {
   const saved = {
     auth: {
       address: '',
-      accessToken: ''
+      accessToken: '',
+      rewardsEligibility: {}
     },
     peerId: '',
     prefs: {

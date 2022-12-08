@@ -1,5 +1,33 @@
 # WebTorrent Desktop Version History
 
+## v1.0.0 - 2022-12-08
+
+### Changed
+
+- Update NFT Torrent Backend URL to production
+- First production release!
+
+## v0.101.3-dev - 2022-11-17
+
+### Changed
+
+- Rename app from "NFTTorrent" to "NFT Torrent"
+- Update copy at the bottom of the main view
+
+## v0.101.2-dev - 2022-11-16
+
+### Added
+
+- Rewards eligibility indicator
+- "Enter your device name" when linking the app
+- Wallet linking statuses UI in preferences (Linked-Eligible, Linked-Ineligible, Unlinked)
+
+### Changed
+
+- Refresh authenticated user data periodically
+- Remove the ability to create torrents
+
+
 ## v0.101.1 - 2022-11-02
 
 ### Added

@@ -3,7 +3,7 @@ const path = require('path')
 const { app } = require('electron')
 const arch = require('arch')
 
-const APP_NAME = 'NFTTorrent'
+const APP_NAME = 'NFT Torrent'
 const APP_TEAM = 'Graviton Inc.'
 const APP_VERSION = require('../package.json').version
 
@@ -18,7 +18,7 @@ const UI_HEADER_HEIGHT = 38
 const UI_TORRENT_HEIGHT = 100
 
 const envSettings = IS_PRODUCTION ? {
-  apiBase: 'https://nft-torrent-backend.graviton.xyz'
+  apiBase: 'https://prod.nft-torrent-backend.graviton.xyz'
 } : {
   apiBase: 'https://dev.nft-torrent-backend.graviton.xyz'
 };
@@ -28,6 +28,7 @@ const gravitonApp = IS_PRODUCTION ? 'https://app.graviton.xyz/torrent' : 'https:
 module.exports = {
   GRAVITON_TORRENT_API_URL: envSettings.apiBase,
   GRAVITON_MAIN_WEB_APP_URL: gravitonApp,
+  STAKE_NOW_URL: `${gravitonApp}/`,
   ANNOUNCEMENT_URL: 'https://webtorrent.io/desktop/announcement',
   AUTO_UPDATE_URL: `${envSettings.apiBase}/update`,
   CRASH_REPORT_URL: 'https://webtorrent.io/desktop/crash-report',

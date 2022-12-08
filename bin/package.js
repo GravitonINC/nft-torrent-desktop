@@ -254,7 +254,7 @@ function buildDarwin (cb) {
     fs.writeFileSync(infoPlistPath, plist.build(infoPlist))
 
     // Copy torrent file icon into app bundle
-    cp.execSync(`cp ${config.APP_FILE_ICON + '.icns'} ${resourcesPath}`)
+    cp.execSync(`cp "${config.APP_FILE_ICON + '.icns"'} "${resourcesPath}"`)
 
     if (process.platform === 'darwin') {
       if (argv.sign) {
@@ -548,7 +548,7 @@ function buildLinux (cb) {
       src: filesPath + '/',
       dest: DIST_PATH,
       arch: destArch,
-      bin: 'NFTTorrent',
+      bin: 'NFT Torrent',
       icon: {
         '48x48': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/48x48/apps/webtorrent-desktop.png'),
         '256x256': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png')
@@ -592,7 +592,7 @@ function buildLinux (cb) {
       src: filesPath + '/',
       dest: DIST_PATH,
       arch: destArch,
-      bin: 'NFTTorrent',
+      bin: 'NFT Torrent',
       icon: {
         '48x48': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/48x48/apps/webtorrent-desktop.png'),
         '256x256': path.join(config.STATIC_PATH, 'linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png')
