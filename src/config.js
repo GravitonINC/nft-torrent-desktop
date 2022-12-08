@@ -17,14 +17,11 @@ const IS_PORTABLE = isPortable()
 const UI_HEADER_HEIGHT = 38
 const UI_TORRENT_HEIGHT = 100
 
-const envSettings =  {
+const envSettings = IS_PRODUCTION ? {
+  apiBase: 'https://prod.nft-torrent-backend.graviton.xyz'
+} : {
   apiBase: 'https://dev.nft-torrent-backend.graviton.xyz'
 };
-// const envSettings = IS_PRODUCTION ? {
-//   apiBase: 'https://nft-torrent-backend.graviton.xyz'
-// } : {
-//   apiBase: 'https://dev.nft-torrent-backend.graviton.xyz'
-// };
 
 const gravitonApp = IS_PRODUCTION ? 'https://app.graviton.xyz/torrent' : 'https://dev.app.graviton.xyz/torrent';
 
