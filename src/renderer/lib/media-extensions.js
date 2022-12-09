@@ -6,7 +6,7 @@ const mediaExtensions = {
   video: [
     '.avi', '.mp4', '.m4v', '.webm', '.mov', '.mkv', '.mpg', '.mpeg',
     '.ogv', '.webm', '.wmv', '.m2ts'],
-  image: ['.gif', '.jpg', '.jpeg', '.png']
+  image: ['.gif', '.jpg', '.jpeg', '.png', '.webp']
 }
 
 module.exports = mediaExtensions
